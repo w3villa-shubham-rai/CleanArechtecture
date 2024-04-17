@@ -1,12 +1,16 @@
+import 'package:clean_archtecture/Utils/enumtype.dart';
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
+import 'package:clean_archtecture/features/auth/presentation/pages/signup_pages.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class AuthCustomBtn extends StatefulWidget {
   final String btnName;
   final  VoidCallback onPressed;  
-  final GlobalKey<FormState> formKey;       
-  const AuthCustomBtn({super.key, required this.btnName, required this.onPressed, required this.formKey});
+  final GlobalKey<FormState> formKey;    
+  final AuthPageType signUpPageType;
+  const AuthCustomBtn({super.key, required this.btnName, required this.onPressed, required this.formKey, required this.signUpPageType});
 
   @override
   State<AuthCustomBtn> createState() => _AuthCustomBtnState();
@@ -34,7 +38,7 @@ class _AuthCustomBtnState extends State<AuthCustomBtn> {
           end: Alignment.topRight,
           )
         ),
-        child: const Center(child: Text("Sign Up",style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600),)),
+        child:  Center(child: Text(widget.signUpPageType == AuthPageType.login?"Sign In":"Sign Up",style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600),)),
       ),
     );
   }
