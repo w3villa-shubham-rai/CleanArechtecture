@@ -1,26 +1,26 @@
 import 'package:clean_archtecture/Utils/enumtype.dart';
 import 'package:clean_archtecture/Utils/validator.dart';
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
+import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_archtecture/features/auth/presentation/bloc/auth_event.dart';
 import 'package:clean_archtecture/features/auth/presentation/widgets/auth_coustom_btn.dart';
 import 'package:clean_archtecture/features/auth/presentation/widgets/coustomTextField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpPage extends StatefulWidget {
-   final AuthPageType pageType;
+  final AuthPageType pageType;
   const SignUpPage({super.key, required this.pageType});
-
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
   final formkey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   @override
   void dispose() {
     super.dispose();
@@ -33,17 +33,15 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: 
-        Visibility(
-          visible:  widget.pageType == AuthPageType.signUp,
+        leading: Visibility(
+          visible: widget.pageType == AuthPageType.signUp,
           child: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-           Navigator.of(context).pop();
-                 },
-            ),
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
-  
       ),
       body: Padding(
         padding: const EdgeInsets.all(13.0),
@@ -52,9 +50,10 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-               Text(
-                 widget.pageType == AuthPageType.login?"Sign In.":"Sign Up.",
-                style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+              Text(
+                widget.pageType == AuthPageType.login ? "Sign In." : "Sign Up.",
+                style:
+                    const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               ),
               Visibility(
                 visible: widget.pageType == AuthPageType.signUp,
@@ -97,41 +96,50 @@ class _SignUpPageState extends State<SignUpPage> {
               AuthCustomBtn(
                 btnName: "Sign Up",
                 onPressed: () {
-                  print("hiii+++++++++++");
+                  if (formkey.currentState!.validate()) {
+                    context.read<AuthBloc>().add(AuthSignUp(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                        name: nameController.text.trim()));
+                  }
                 },
                 formKey: formkey,
-                signUpPageType:widget.pageType ,
+                signUpPageType: widget.pageType,
               ),
               const SizedBox(
                 height: 20,
               ),
               InkWell(
                 onTap: () {
-                  if(widget.pageType == AuthPageType.signUp){
-                     Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignUpPage(pageType: AuthPageType.login),
-                    ),
-                  );
-                }
-                else{
-                   Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignUpPage(pageType: AuthPageType.signUp),
-                    ),
-                  );
-                }
-                 
+                  if (widget.pageType == AuthPageType.signUp) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const SignUpPage(pageType: AuthPageType.login),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const SignUpPage(pageType: AuthPageType.signUp),
+                      ),
+                    );
+                  }
                 },
                 child: RichText(
                   text: TextSpan(
-                      text:widget.pageType == AuthPageType.login?'Don\'t have an account? ': 'All ready  have an account  ',
+                      text: widget.pageType == AuthPageType.login
+                          ? 'Don\'t have an account? '
+                          : 'All ready  have an account  ',
                       style: Theme.of(context).textTheme.titleMedium,
                       children: [
                         TextSpan(
-                            text: widget.pageType == AuthPageType.login?'Sign Up':'Sign In',
+                            text: widget.pageType == AuthPageType.login
+                                ? 'Sign Up'
+                                : 'Sign In',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -148,5 +156,3 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
-
-
