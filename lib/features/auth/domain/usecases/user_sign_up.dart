@@ -4,9 +4,9 @@ import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy
 import 'package:flutter/material.dart';
 import 'package:fpdart/src/either.dart';
 
-class UserSignUp implements UseCase<String, UserSignUpParams> {
+class UserSignUpUseCase implements UseCase<String, UserSignUpParams> {
   final AuthRepositry authRepositry;
-  UserSignUp(this.authRepositry);
+  UserSignUpUseCase(this.authRepositry);
   @override
   Future<Either<Failure, String>> call(UserSignUpParams params) async {
     debugPrint("email1 :${params.name}");

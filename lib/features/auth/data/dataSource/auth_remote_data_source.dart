@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDataSource {
-  Future<String> signUpWithEmailPassword(
-      {required String name, required String email, required String password});
-  Future<String> loginWithEmailPassword(
-      {required String email, required String password});
+  Future<String> signUpWithEmailPassword( {required String name, required String email, required String password});
+  Future<String> loginWithEmailPassword( {required String email, required String password});
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -30,7 +28,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       debugPrint("email5 :$email");
       debugPrint("email6 :$password");
       final responsce = await supabaseClient.auth
-          .signUp(password: password, email: email, data: {name: name});
+          .signUp(password: password, email: email,);
       if (responsce.user == null) {
         throw ApplictionServerException("User is Null !");
       }

@@ -1,9 +1,7 @@
 import 'package:clean_archtecture/Utils/enumtype.dart';
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
-import 'package:clean_archtecture/features/auth/presentation/pages/signup_pages.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 
 class AuthCustomBtn extends StatefulWidget {
   final String btnName;

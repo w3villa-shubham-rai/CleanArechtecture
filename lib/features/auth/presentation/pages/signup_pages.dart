@@ -28,7 +28,12 @@ class _SignUpPageState extends State<SignUpPage> {
     emailController.dispose();
     passwordController.dispose();
   }
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +102,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 btnName: "Sign Up",
                 onPressed: () {
                   if (formkey.currentState!.validate()) {
-                    context.read<AuthBloc>().add(AuthSignUp(
+                    context.read<AuthBloc>().add(
+                      AuthSignUp(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                         name: nameController.text.trim()));
