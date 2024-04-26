@@ -1,19 +1,16 @@
 import 'package:clean_archtecture/core/error/failure.dart';
 import 'package:clean_archtecture/core/usecase/usecase.dart';
+import 'package:clean_archtecture/features/auth/domain/enteties/user.dart';
 import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy.dart';
-import 'package:flutter/material.dart';
 import 'package:fpdart/src/either.dart';
+// import 'package:supabase_flutter/supabase_flutter.dart';
 
-class UserSignUpUseCase implements UseCase<String, UserSignUpParams> {
+class UserSignUpUseCase implements UseCase<User, UserSignUpParams> {
   final AuthRepositry authRepositry;
   UserSignUpUseCase(this.authRepositry);
   @override
-  Future<Either<Failure, String>> call(UserSignUpParams params) async {
-    debugPrint("email1 :${params.name}");
-    debugPrint("email2 :${params.email}");
-    debugPrint("email3 :${params.password}");
-    return await authRepositry.signUpWithEmailPassword(
-        name: params.name, email: params.email, password: params.password);
+  Future<Either<Failure, User>> call(UserSignUpParams params) async {
+    return await authRepositry.signUpWithEmailPassword(name: params.name, email: params.email, password: params.password);
   }
 }
 
@@ -23,3 +20,4 @@ class UserSignUpParams {
   final String name;
   UserSignUpParams(this.email, this.password, this.name);
 }
+//  final res = await userSignUpUseCase(UserSignUpParams(event.email, event.password, event.name),);
