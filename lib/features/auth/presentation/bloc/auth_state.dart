@@ -1,4 +1,4 @@
-import 'package:clean_archtecture/features/auth/data/models/user.models.dart';
+
 import 'package:clean_archtecture/features/auth/domain/enteties/user.dart';
 
 class AuthBlocState {}

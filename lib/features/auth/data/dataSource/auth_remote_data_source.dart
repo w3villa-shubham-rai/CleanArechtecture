@@ -13,10 +13,20 @@ abstract interface class AuthRemoteDataSource {
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final SupabaseClient supabaseClient;
   AuthRemoteDataSourceImpl(this.supabaseClient);
+ 
+ 
   @override
-  Future<UserModel> loginWithEmailPassword(
-      {required String email, required String password}) {
-    throw UnimplementedError();
+  Future<UserModel> loginWithEmailPassword( {required String email, required String password}) async{
+    try {
+      final responsce = await supabaseClient.auth.signInWithPassword(password: password, email: email,);
+      if (responsce.user == null) {
+        throw ApplictionServerException("User is Null !");
+      }
+      return UserModel.fromJson(responsce.user!.toJson());
+    } catch (e) {
+      debugPrint("Error in signUpWithEmailPassword: $e");
+      throw ApplictionServerException(e.toString());
+    }
   }
 
   @override
