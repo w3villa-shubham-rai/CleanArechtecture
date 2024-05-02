@@ -1,6 +1,7 @@
-import 'package:clean_archtecture/Utils/enumtype.dart';
+
 import 'package:clean_archtecture/core/theme/theme.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:clean_archtecture/features/auth/presentation/bloc/auth_event.dart';
 import 'package:clean_archtecture/features/auth/presentation/pages/signup_pages.dart';
 import 'package:clean_archtecture/geit_dependency.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependency();
- 
+
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
@@ -20,15 +21,26 @@ void main() async {
   ));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthIsUserLoggedInEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.darkThemeMode,
-      home: const SignUpPage(pageType: AuthPageType.signUp),
+      home:  SignUpPage(),
     );
   }
 }

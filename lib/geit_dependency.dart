@@ -1,6 +1,7 @@
 import 'package:clean_archtecture/features/auth/data/dataSource/auth_remote_data_source.dart';
 import 'package:clean_archtecture/features/auth/data/repositories/auth_repositorie_impl.dart';
 import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy.dart';
+import 'package:clean_archtecture/features/auth/domain/usecases/current_user_Usecase.dart';
 import 'package:clean_archtecture/features/auth/domain/usecases/user_login_usecase.dart';
 import 'package:clean_archtecture/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart';
@@ -26,7 +27,8 @@ void _initauth(){
   serviceLocator.registerFactory<UserSignUpUseCase>(() => UserSignUpUseCase(serviceLocator(),),);
 
   serviceLocator.registerFactory(() => LogInUseCase(serviceLocator(),),);
+   serviceLocator.registerFactory(() => CurrentUserUseCase(serviceLocator(),),);
   
-  serviceLocator.registerLazySingleton(() => AuthBloc(userSignUpUseCase: serviceLocator<UserSignUpUseCase>(),userLogInUseCase: serviceLocator()));
+  serviceLocator.registerLazySingleton(() => AuthBloc(userSignUpUseCase: serviceLocator<UserSignUpUseCase>(),userLogInUseCase: serviceLocator(), currentUserUseCase: serviceLocator()),);
 
 }

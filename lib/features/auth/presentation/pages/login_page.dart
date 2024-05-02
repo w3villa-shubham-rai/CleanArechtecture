@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const SignUpPage(pageType: AuthPageType.signUp),
+                              const SignUpPage(),
                         ),
                       );
                     },
