@@ -1,4 +1,4 @@
-import 'package:clean_archtecture/Utils/enumtype.dart';
+
 import 'package:clean_archtecture/Utils/validator.dart';
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/loader_frame.dart';

@@ -1,3 +1,4 @@
+import 'package:clean_archtecture/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:clean_archtecture/features/auth/data/dataSource/auth_remote_data_source.dart';
 import 'package:clean_archtecture/features/auth/data/repositories/auth_repositorie_impl.dart';
 import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy.dart';
@@ -27,8 +28,8 @@ void _initauth(){
   serviceLocator.registerFactory<UserSignUpUseCase>(() => UserSignUpUseCase(serviceLocator(),),);
 
   serviceLocator.registerFactory(() => LogInUseCase(serviceLocator(),),);
-   serviceLocator.registerFactory(() => CurrentUserUseCase(serviceLocator(),),);
-  
-  serviceLocator.registerLazySingleton(() => AuthBloc(userSignUpUseCase: serviceLocator<UserSignUpUseCase>(),userLogInUseCase: serviceLocator(), currentUserUseCase: serviceLocator()),);
+  serviceLocator.registerFactory(() => CurrentUserUseCase(serviceLocator(),),);
+  serviceLocator.registerLazySingleton(() => AppUserCubit());
+  serviceLocator.registerLazySingleton(() => AuthBloc(userSignUpUseCase: serviceLocator<UserSignUpUseCase>(),userLogInUseCase: serviceLocator(), currentUserUseCase: serviceLocator(), appUserCubit: serviceLocator()),);
 
 }

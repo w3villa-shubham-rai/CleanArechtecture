@@ -1,6 +1,6 @@
 import 'package:clean_archtecture/core/error/failure.dart';
 import 'package:clean_archtecture/core/usecase/usecase.dart';
-import 'package:clean_archtecture/features/auth/domain/enteties/user.dart';
+import 'package:clean_archtecture/core/enteties/user.dart';
 import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy.dart';
 import 'package:fpdart/src/either.dart';
 // import 'package:supabase_flutter/supabase_flutter.dart';

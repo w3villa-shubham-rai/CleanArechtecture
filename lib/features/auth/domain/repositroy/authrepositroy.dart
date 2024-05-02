@@ -1,5 +1,5 @@
 import 'package:clean_archtecture/core/error/failure.dart';
-import 'package:clean_archtecture/features/auth/domain/enteties/user.dart';
+import 'package:clean_archtecture/core/enteties/user.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class AuthRepositry {
