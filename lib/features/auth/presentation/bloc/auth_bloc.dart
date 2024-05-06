@@ -20,6 +20,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthBlocState> {
       required this.currentUserUseCase,
       required this.appUserCubit})
       : super(AuthIntialState()) {
+    // on<AuthEvent>((_, emait) => emit(AuthLoadingState()));
     on<AuthSignUpEvent>(_handleSignUp);
     on<AuthLoginEvent>(_handleSignIn);
     on<AuthIsUserLoggedInEvent>(_isUserLogedIn);
@@ -34,11 +35,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthBlocState> {
       final signUpParams =
           UserSignUpParams(event.email, event.password, event.name);
       final result = await userSignUpUseCase(signUpParams);
-      result.fold(
-        (failure) => emit(AuthFailureState(failure.message!)),
-        (user) =>emitAuthSuccess(user, emit)
-        //  emit(AuthSuccesState(user)),
-      );
+      result.fold((failure) => emit(AuthFailureState(failure.message!)),
+          (user) => emitAuthSuccess(user, emit)
+          //  emit(AuthSuccesState(user)),
+          );
     } catch (e) {
       emit(AuthFailureState('An unexpected error occurred'));
     }
@@ -53,7 +53,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthBlocState> {
       final result = await userLogInUseCase(signInParams);
       result.fold((failure) => emit(AuthFailureState(failure.message!)),
           (r) => emitAuthSuccess(r, emit));
-          // emit(AuthSuccesState(r)));
+      // emit(AuthSuccesState(r)));
     } catch (e) {
       emit(AuthFailureState('An unexpected error occurred'));
     }

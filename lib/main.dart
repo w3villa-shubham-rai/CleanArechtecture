@@ -4,6 +4,7 @@ import 'package:clean_archtecture/core/theme/theme.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_event.dart';
 import 'package:clean_archtecture/features/auth/presentation/pages/login_page.dart';
+import 'package:clean_archtecture/features/blog/presentation/page/blog_Page.dart';
 import 'package:clean_archtecture/geit_dependency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,8 +49,8 @@ class _MyAppState extends State<MyApp> {
             return state is AppUserLoggedIn;
           },
           builder: (context, isLoggedIn) {
-            if(isLoggedIn){
-              return const Scaffold(body: Center(child: Text("Logged In !"),),);
+            if (isLoggedIn) {
+              return const Blogpage();
             }
             return const LoginPage();
           },
