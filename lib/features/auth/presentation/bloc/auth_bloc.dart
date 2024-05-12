@@ -14,22 +14,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthBlocState> {
   final LogInUseCase userLogInUseCase;
   final CurrentUserUseCase currentUserUseCase;
   final AppUserCubit appUserCubit;
-  AuthBloc(
-      {required this.userSignUpUseCase,
-      required this.userLogInUseCase,
-      required this.currentUserUseCase,
-      required this.appUserCubit})
-      : super(AuthIntialState()) {
+  AuthBloc( {required this.userSignUpUseCase,required this.userLogInUseCase,required this.currentUserUseCase,required this.appUserCubit}): super(AuthIntialState()) {
     // on<AuthEvent>((_, emait) => emit(AuthLoadingState()));
     on<AuthSignUpEvent>(_handleSignUp);
     on<AuthLoginEvent>(_handleSignIn);
     on<AuthIsUserLoggedInEvent>(_isUserLogedIn);
   }
 
-  Future<void> _handleSignUp(
-    AuthSignUpEvent event,
-    Emitter<AuthBlocState> emit,
-  ) async {
+  Future<void> _handleSignUp(AuthSignUpEvent event, Emitter<AuthBlocState> emit) async {
     try {
       emit(AuthLoadingState());
       final signUpParams =
@@ -48,11 +40,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthBlocState> {
       AuthLoginEvent event, Emitter<AuthBlocState> emit) async {
     try {
       emit(AuthLoadingState());
-      final signInParams =
-          UserLoginInParams(email: event.email, password: event.password);
+      final signInParams = UserLoginInParams(email: event.email, password: event.password);
       final result = await userLogInUseCase(signInParams);
-      result.fold((failure) => emit(AuthFailureState(failure.message!)),
-          (r) => emitAuthSuccess(r, emit));
+      result.fold((failure) => emit(AuthFailureState(failure.message!)),(r) => emitAuthSuccess(r, emit));
       // emit(AuthSuccesState(r)));
     } catch (e) {
       emit(AuthFailureState('An unexpected error occurred'));

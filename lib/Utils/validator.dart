@@ -29,5 +29,12 @@ String? nameValidate(String? value) {
   }
   return null; 
 }
+
+String? tittleAndDescriptionValidate(String value){
+  if(value.isEmpty){
+     return 'Please enter any Text';
+  }
+  return null;
+}
   
 }
