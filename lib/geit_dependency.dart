@@ -18,25 +18,33 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependency() async {
+  final supabase = await Supabase.initialize(
+      url: AppSecretsUrl.supabaseUrl, anonKey: AppSecretsUrl.secretsanonKey);
+      serviceLocator.registerLazySingleton(() => supabase.client);  
+     _initauth();
+     _initBlog();
+}
 
-  final supabase = await Supabase.initialize(url: AppSecretsUrl.supabaseUrl, anonKey: AppSecretsUrl.secretsanonKey);
-  serviceLocator.registerSingleton(supabase.client);
+void _initauth(){
 
-  // Repo
-  serviceLocator.registerSingleton<AuthRemoteDataSource>(AuthRemoteDataSourceImpl(serviceLocator()));
-  serviceLocator.registerSingleton<AuthRepositry>(AuthRepositoryImpl(serviceLocator()));
-  serviceLocator.registerSingleton<BlogRemoteDataSource>(BlogRemoteDataSourceImpl(serviceLocator()));
-  serviceLocator.registerSingleton<BlogRepository>(BlogReposryImp(serviceLocator()));
+  serviceLocator.registerFactory<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(serviceLocator(),),);
+  serviceLocator.registerFactory<AuthRepositry>(() => AuthRepositoryImpl(serviceLocator(),),);
+  serviceLocator.registerFactory<UserSignUpUseCase>(() => UserSignUpUseCase(serviceLocator(),),);
+  serviceLocator.registerFactory(() => LogInUseCase(serviceLocator(),),);
+  serviceLocator.registerFactory(() => CurrentUserUseCase(serviceLocator(),),);
+  serviceLocator.registerLazySingleton(() => AppUserCubit());
+  serviceLocator.registerLazySingleton(() => AuthBloc(userSignUpUseCase: serviceLocator<UserSignUpUseCase>(),userLogInUseCase: serviceLocator(), currentUserUseCase: serviceLocator(), appUserCubit: serviceLocator()),);
 
-  // UseCase
-  serviceLocator.registerSingleton<UploadBlogUseCase>(UploadBlogUseCase(serviceLocator()));
-  serviceLocator.registerSingleton<UserSignUpUseCase>(UserSignUpUseCase(serviceLocator()));
-  serviceLocator.registerSingleton<LogInUseCase>(LogInUseCase(serviceLocator()));
-  serviceLocator.registerSingleton<CurrentUserUseCase>(CurrentUserUseCase(serviceLocator()));
+}
 
 
-  // Bloc/Cubit
-  serviceLocator.registerFactory(() => AppUserCubit());
-  serviceLocator.registerFactory(() => AuthBloc(userSignUpUseCase: serviceLocator(),userLogInUseCase: serviceLocator(), currentUserUseCase: serviceLocator(), appUserCubit: serviceLocator()),);
-  serviceLocator.registerFactory(() => BlogBloc(serviceLocator()));
+void _initBlog(){
+  // Datasource
+  serviceLocator.registerFactory<BlogRemoteDataSource>(() => BlogRemoteDataSourceImpl(serviceLocator(),));
+  // Repositry
+  serviceLocator.registerFactory<BlogRepository>(() => BlogReposryImp(serviceLocator(),));
+  // Usecase
+  serviceLocator.registerFactory<UploadBlogUseCase>(() => UploadBlogUseCase(serviceLocator()));
+  // Bloc
+  serviceLocator.registerLazySingleton(() => BlogBloc(serviceLocator<UploadBlogUseCase>(), ));
 }

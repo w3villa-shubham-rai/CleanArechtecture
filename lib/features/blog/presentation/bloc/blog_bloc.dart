@@ -1,6 +1,7 @@
 import 'package:clean_archtecture/features/blog/domain/usecases/uploadBlog_usecase.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_State.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlogBloc extends Bloc<BlogUploadEvent, BlogState> {
@@ -16,6 +17,7 @@ class BlogBloc extends Bloc<BlogUploadEvent, BlogState> {
      res.fold((error) => emit(BlogFailureState(error.toString())), (r) => emit(BlogSucessState()));
     } catch (e) {
         emit(BlogFailureState('An unexpected error occurred in Blog'));
+        debugPrint("error in _onUploadBlog  function");
     }
     
   }

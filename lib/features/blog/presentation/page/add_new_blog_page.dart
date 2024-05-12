@@ -1,4 +1,3 @@
-
 import 'dart:io';
 import 'package:clean_archtecture/Utils/pick_image.dart';
 import 'package:clean_archtecture/core/common/cubits/app_user/app_user_cubit.dart';
@@ -39,208 +38,187 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
     }
   }
 
-  // void uploadBlog() {
-  //   if (imagepostFormKay.currentState!.validate() && selectedButtons.isNotEmpty && image != null) {
-  //     final posterId = (context.read<AppUserCubit>().state as AppUserLoggedIn).user;
-  //     context.read<BlogBloc>().add(BlogUploadEvent(
-  //         content: blogDescriptionController.text.trim(),
-  //         image: image!,
-  //         posterId: posterId.toString(),
-  //         title: blogTitleController.text.trim(),
-  //         topics: selectedButtons));
-  //   }
-  // }
-
-  
-
-void uploadBlog() {
+ void uploadBlog() {
   if (imagepostFormKay.currentState!.validate() && selectedButtons.isNotEmpty && image != null) {
     final appUserState = context.read<AppUserCubit>().state;
     
     if (appUserState is AppUserLoggedIn) {
-      final posterId = appUserState.user;
+      final userId = appUserState.user.id.toString(); // Extract and convert UserModel ID to string
       
       context.read<BlogBloc>().add(BlogUploadEvent(
         content: blogDescriptionController.text.trim(),
         image: image!,
-        posterId: posterId.toString(),
+        posterId: userId, // Use the string representation of UserModel ID
         title: blogTitleController.text.trim(),
         topics: selectedButtons,
       ));
     } else {
       // Handle the case where the user is not logged in
-      // You can show an error message or redirect the user to the login screen
-      // For example:
-      // showSnackBar(context, 'User is not logged in');
-      // Navigator.pushNamed(context, '/login');
+      // For example, showSnackBar(context, 'User is not logged in');
     }
   }
 }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add New Post"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                uploadBlog();
-              },
-              icon: const Icon(Icons.done_all_rounded))
-        ],
-      ),
-      body: BlocConsumer<BlogBloc,BlogState>(
-         listener: (context, state) {
-          if (state is BlogFailureState) {
-             showSnackbar(context, state.error);
-          } else if (state is BlogSucessState) {
-           Navigator.pushAndRemoveUntil( context,  MaterialPageRoute(builder: (context) => const Blogpage()),(Route<dynamic> route) => false,
-         );
-
-          }
-        },
-         builder: (context, state) {  
-           if(state is BlogLoadingState){
-             return const LoaderFrame();
-           }
-         return SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: imagepostFormKay,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                image != null
-                    ? Container(
-                        height: 250,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColors.whiteColor,
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 2,
-                              )
-                            ]),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
-                              image!,
-                              fit: BoxFit.cover,
-                              filterQuality: FilterQuality.high,
-                            )))
-                    : InkWell(
-                        onTap: () {
-                          selectImage();
-                        },
-                        child: DottedBorder(
-                            radius: const Radius.circular(15),
-                            borderType: BorderType.RRect,
-                            strokeCap: StrokeCap.round,
-                            dashPattern: const [12, 10],
-                            color: AppColors.borderColor,
-                            child: const SizedBox(
-                              height: 150,
-                              width: double.infinity,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.folder_open,
-                                    size: 45,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    "Select Your Image",
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      ToolChipWidget(
-                        btnName: "Computer Science",
-                        blogTypeFunction: () {},
-                        onButtonClicked: (buttonName, btncolor) {
-                          btncolor
-                              ? selectedButtons.add(buttonName)
-                              : selectedButtons.remove(buttonName);
-                        },
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      ToolChipWidget(
-                        btnName: "Bussiness",
-                        blogTypeFunction: () {},
-                        onButtonClicked: (buttonName, btncolor) {
-                          btncolor
-                              ? selectedButtons.add(buttonName)
-                              : selectedButtons.remove(buttonName);
-                        },
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      ToolChipWidget(
-                        btnName: "Python",
-                        blogTypeFunction: () {},
-                        onButtonClicked: (buttonName, btncolor) {
-                          btncolor
-                              ? selectedButtons.add(buttonName)
-                              : selectedButtons.remove(buttonName);
-                        },
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      ToolChipWidget(
-                        btnName: "Science",
-                        blogTypeFunction: () {},
-                        onButtonClicked: (buttonName, btncolor) {
-                          btncolor
-                              ? selectedButtons.add(buttonName)
-                              : selectedButtons.remove(buttonName);
-                          print("seleted name $selectedButtons");
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                BlogEditorTextField(
-                  controller: blogTitleController,
-                  hintText: "Blog Title",
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                BlogEditorTextField(
-                  controller: blogDescriptionController,
-                  hintText: "Blog Title",
-                  
-                )
-              ],
-            ),
-          ),
+        appBar: AppBar(
+          title: const Text("Add New Post"),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  uploadBlog();
+                },
+                icon: const Icon(Icons.done_all_rounded))
+          ],
         ),
-      );
-         }
-       )
-
-  
-    );
+        body: BlocConsumer<BlogBloc, BlogState>(listener: (context, state) {
+          if (state is BlogFailureState) {
+            showSnackbar(context, state.error);
+          } else if (state is BlogSucessState) {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => const Blogpage()),
+              (Route<dynamic> route) => false,
+            );
+          }
+        }, builder: (context, state) {
+          if (state is BlogLoadingState) {
+            return const LoaderFrame();
+          }
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: imagepostFormKay,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    image != null
+                        ? Container(
+                            height: 250,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: AppColors.whiteColor,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 2,
+                                  )
+                                ]),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.file(
+                                  image!,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.high,
+                                )))
+                        : InkWell(
+                            onTap: () {
+                              selectImage();
+                            },
+                            child: DottedBorder(
+                                radius: const Radius.circular(15),
+                                borderType: BorderType.RRect,
+                                strokeCap: StrokeCap.round,
+                                dashPattern: const [12, 10],
+                                color: AppColors.borderColor,
+                                child: const SizedBox(
+                                  height: 150,
+                                  width: double.infinity,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.folder_open,
+                                        size: 45,
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        "Select Your Image",
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: [
+                          ToolChipWidget(
+                            btnName: "Computer Science",
+                            blogTypeFunction: () {},
+                            onButtonClicked: (buttonName, btncolor) {
+                              btncolor
+                                  ? selectedButtons.add(buttonName)
+                                  : selectedButtons.remove(buttonName);
+                            },
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          ToolChipWidget(
+                            btnName: "Bussiness",
+                            blogTypeFunction: () {},
+                            onButtonClicked: (buttonName, btncolor) {
+                              btncolor
+                                  ? selectedButtons.add(buttonName)
+                                  : selectedButtons.remove(buttonName);
+                            },
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          ToolChipWidget(
+                            btnName: "Python",
+                            blogTypeFunction: () {},
+                            onButtonClicked: (buttonName, btncolor) {
+                              btncolor
+                                  ? selectedButtons.add(buttonName)
+                                  : selectedButtons.remove(buttonName);
+                            },
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          ToolChipWidget(
+                            btnName: "Science",
+                            blogTypeFunction: () {},
+                            onButtonClicked: (buttonName, btncolor) {
+                              btncolor
+                                  ? selectedButtons.add(buttonName)
+                                  : selectedButtons.remove(buttonName);
+                              print("seleted name $selectedButtons");
+                            },
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    BlogEditorTextField(
+                      controller: blogTitleController,
+                      hintText: "Blog Title",
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    BlogEditorTextField(
+                      controller: blogDescriptionController,
+                      hintText: "Blog Title",
+                    )
+                  ],
+                ),
+              ),
+            ),
+          );
+        }));
   }
 }

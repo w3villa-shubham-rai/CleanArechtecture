@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:clean_archtecture/core/error/exception.dart';
 import 'package:clean_archtecture/features/blog/data/models/blog_model.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class BlogRemoteDataSource {
@@ -21,8 +22,8 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       final blogData =await supabaseClient.from('blogs').insert(blog.toJson()).select();
       return BlogModel.fromJson(blogData.first);
     } catch (e) {
-      throw ApplictionServerException(
-          "error in BlogRemoteDataSourceImpl ${e.toString()}");
+       debugPrint("error in uploadblog function +++++++++++++++++======= $e");
+      throw ApplictionServerException("error in BlogRemoteDataSourceImpl ${e.toString()}");
     }
   }
   
@@ -33,6 +34,7 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
         await supabaseClient.storage.from('blog_images').upload(blogModel.content, image);
         return supabaseClient.storage.from('blog_images').getPublicUrl(blogModel.id);
     } catch (message) {
+       debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
        throw ApplictionServerException("error in BlogRemoteDataSourceImpl ${message.toString()}");
     }
   }
