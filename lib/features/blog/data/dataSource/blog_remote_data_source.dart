@@ -14,6 +14,20 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
   final SupabaseClient supabaseClient;
   BlogRemoteDataSourceImpl(this.supabaseClient);
 
+  //+++++++++++++++++++uploading blog relate image on Server++++++++++++++++++++
+
+  @override
+  Future<String> uploadingBlogImage({required File image, required BlogModel blogModel}) async{
+    try {
+      // herer id means user id(poster id= user login id)
+        await supabaseClient.storage.from('blog_images').upload(blogModel.id, image);
+        return supabaseClient.storage.from('blog_images').getPublicUrl(blogModel.id);
+    } catch (message) {
+       debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
+       throw ApplictionServerException("error in BlogRemoteDataSourceImpl ${message.toString()}");
+    }
+  }
+
 
   
   @override
@@ -27,16 +41,6 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
     }
   }
   
-  @override
-  Future<String> uploadingBlogImage({required File image, required BlogModel blogModel}) async{
-    try {
-      
-        await supabaseClient.storage.from('blog_images').upload(blogModel.content, image);
-        return supabaseClient.storage.from('blog_images').getPublicUrl(blogModel.id);
-    } catch (message) {
-       debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
-       throw ApplictionServerException("error in BlogRemoteDataSourceImpl ${message.toString()}");
-    }
-  }
+
   
 }

@@ -22,7 +22,8 @@ class BlogReposryImp implements BlogRepository {
     required List<String> topics,
   }) async {
     try {
-      BlogModel blogModel = BlogModel(
+      BlogModel blogModel = 
+      BlogModel(
           id: const Uuid().v1()??"",
           posterId: posterId,
           title: title,
@@ -30,9 +31,11 @@ class BlogReposryImp implements BlogRepository {
           imageUrl: '',
           topics: topics,
           updatedAt: DateTime.now());
-      final imageUrl = await blogRemoteDataSource.uploadingBlogImage(
-          image: image, blogModel: blogModel);
-      blogModel.copyWith(imageUrl: imageUrl);
+    
+    
+      final imageUrl = await blogRemoteDataSource.uploadingBlogImage( image: image, blogModel: blogModel);
+
+       blogModel = blogModel.copyWith( imageUrl: imageUrl,);
       final uploadedblog = await blogRemoteDataSource.uploadBlog(blogModel);
       return right(uploadedblog);
     } on ApplictionServerException catch (e) {

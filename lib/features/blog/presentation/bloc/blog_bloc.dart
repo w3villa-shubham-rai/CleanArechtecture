@@ -14,7 +14,7 @@ class BlogBloc extends Bloc<BlogUploadEvent, BlogState> {
     try {
        emit((BlogLoadingState()));
        final res= await uploadBlogUseCase(UploadBlogParams(posterId: event.posterId, title: event.title, content: event.content, image: event.image, topics: event.topics));
-     res.fold((error) => emit(BlogFailureState(error.toString())), (r) => emit(BlogSucessState()));
+       res.fold((error) => emit(BlogFailureState(error.toString())), (r) => emit(BlogSucessState()));
     } catch (e) {
         emit(BlogFailureState('An unexpected error occurred in Blog'));
         debugPrint("error in _onUploadBlog  function");

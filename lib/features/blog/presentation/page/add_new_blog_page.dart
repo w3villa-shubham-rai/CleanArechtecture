@@ -38,27 +38,23 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
     }
   }
 
- void uploadBlog() {
-  if (imagepostFormKay.currentState!.validate() && selectedButtons.isNotEmpty && image != null) {
-    final appUserState = context.read<AppUserCubit>().state;
-    
-    if (appUserState is AppUserLoggedIn) {
-      final userId = appUserState.user.id.toString(); // Extract and convert UserModel ID to string
-      
-      context.read<BlogBloc>().add(BlogUploadEvent(
-        content: blogDescriptionController.text.trim(),
-        image: image!,
-        posterId: userId, // Use the string representation of UserModel ID
-        title: blogTitleController.text.trim(),
-        topics: selectedButtons,
-      ));
-    } else {
-      // Handle the case where the user is not logged in
-      // For example, showSnackBar(context, 'User is not logged in');
+  void uploadBlog() {
+    if (imagepostFormKay.currentState!.validate() && selectedButtons.isNotEmpty &&  image != null) {
+      final appUserState = context.read<AppUserCubit>().state;
+      if (appUserState is AppUserLoggedIn) {
+        final userId = appUserState.user.id.toString();
+        context.read<BlogBloc>().add(BlogUploadEvent(
+              content: blogDescriptionController.text.trim(),
+              image: image!,
+              posterId: userId, // Use the string representation of UserModel ID
+              title: blogTitleController.text.trim(),
+              topics: selectedButtons,
+            ));
+      } else {
+        debugPrint("uploadBlog() User Not LogedIn");
+      }
     }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
