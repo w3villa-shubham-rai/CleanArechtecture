@@ -23,7 +23,7 @@ class AuthRepositoryImpl implements AuthRepositry {
      on  ApplictionServerException catch(e){
       return left(Failure(e.toString()));
     } 
-     }
+  }
 
 
   @override

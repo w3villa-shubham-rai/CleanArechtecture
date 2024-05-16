@@ -7,7 +7,9 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class BlogRemoteDataSource {
   Future<BlogModel> uploadBlog(BlogModel blog);
-  Future<String> uploadingBlogImage({required File image,required BlogModel blogModel});
+  Future<String> uploadingBlogImage(
+      {required File image, required BlogModel blogModel});
+  Future<List<BlogModel>> fetchallBlogRemote();
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -17,30 +19,44 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
   //+++++++++++++++++++uploading blog relate image on Server++++++++++++++++++++
 
   @override
-  Future<String> uploadingBlogImage({required File image, required BlogModel blogModel}) async{
+  Future<String> uploadingBlogImage(
+      {required File image, required BlogModel blogModel}) async {
     try {
       // herer id means user id(poster id= user login id)
-        await supabaseClient.storage.from('blog_images').upload(blogModel.id, image);
-        return supabaseClient.storage.from('blog_images').getPublicUrl(blogModel.id);
+      await supabaseClient.storage
+          .from('blog_images')
+          .upload(blogModel.id, image);
+      return supabaseClient.storage
+          .from('blog_images')
+          .getPublicUrl(blogModel.id);
     } catch (message) {
-       debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
-       throw ApplictionServerException("error in BlogRemoteDataSourceImpl ${message.toString()}");
+      debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
+      throw ApplictionServerException(
+          "error in BlogRemoteDataSourceImpl ${message.toString()}");
     }
   }
 
-
-  
   @override
   Future<BlogModel> uploadBlog(BlogModel blog) async {
     try {
-      final blogData =await supabaseClient.from('blogs').insert(blog.toJson()).select();
+      final blogData =
+          await supabaseClient.from('blogs').insert(blog.toJson()).select();
       return BlogModel.fromJson(blogData.first);
     } catch (e) {
-       debugPrint("error in uploadblog function +++++++++++++++++======= $e");
-      throw ApplictionServerException("error in BlogRemoteDataSourceImpl ${e.toString()}");
+      debugPrint("error in uploadblog function +++++++++++++++++======= $e");
+      throw ApplictionServerException(
+          "error in BlogRemoteDataSourceImpl ${e.toString()}");
     }
   }
-  
 
-  
+  @override
+  Future<List<BlogModel>> fetchallBlogRemote() async {
+   try {
+     final blogs= await supabaseClient.from('blogs').select('*, profiles(name)');
+     return blogs.map((blog) => BlogModel.fromJson(blog).copyWith(posterName: blog['profiles']['name'],)).toList();
+   } catch (e) {
+      throw ApplictionServerException(  "error in fetchallBlogRemote ${e.toString()}") ;
+   }
+   
+  }
 }

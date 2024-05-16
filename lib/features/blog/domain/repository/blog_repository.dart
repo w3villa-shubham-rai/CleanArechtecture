@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:clean_archtecture/core/error/failure.dart';
 import 'package:clean_archtecture/features/blog/domain/entites/blog.dart';
+import 'package:clean_archtecture/features/blog/domain/entites/fetchblog_entities.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class BlogRepository{
@@ -11,5 +12,9 @@ abstract interface class BlogRepository{
     required String content,
     required String posterId,
     required List<String> topics,});
+
+  
+   Future<Either<Failure,List<Blog>>> fetchedAllBlogRepository();
 }
+
 
