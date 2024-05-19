@@ -38,7 +38,7 @@ class BlogBloc extends Bloc<BlogEvent, BlogState> {
        final res = await fethchAllBlogsUseCase(NoParams());
        res.fold(
       (l) => emit(BlogFailureState(l.toString())),
-      (r) => emit(BlogSucessState()),
+      (r) => emit(BlogDisplaySucessState(r)),
     );
     } catch (e) {
        emit(BlogFailureState('An unexpected error occurred in _fetchAllBlog $e'));

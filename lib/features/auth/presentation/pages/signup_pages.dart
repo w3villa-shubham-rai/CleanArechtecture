@@ -9,6 +9,7 @@ import 'package:clean_archtecture/features/auth/presentation/bloc/auth_state.dar
 import 'package:clean_archtecture/features/auth/presentation/pages/login_page.dart';
 import 'package:clean_archtecture/features/auth/presentation/widgets/auth_coustom_btn.dart';
 import 'package:clean_archtecture/features/auth/presentation/widgets/coustomTextField.dart';
+import 'package:clean_archtecture/features/blog/presentation/page/blog_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,7 +49,14 @@ class _SignUpPageState extends State<SignUpPage> {
               BlocConsumer<AuthBloc, AuthBlocState>(
             listener: (context, state) {
             if (state is AuthFailureState) {
-              showSnackbar(context, state.message);
+              showSnackBar(context, state.message);
+            }
+           else if (state is AuthSuccesState) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const Blogpage()),
+                    (Route<dynamic> route) => false,
+              );
             }
           }, builder: (context, state) {
             if (state is AuthLoadingState) {

@@ -71,7 +71,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
         ),
         body: BlocConsumer<BlogBloc, BlogState>(listener: (context, state) {
           if (state is BlogFailureState) {
-            showSnackbar(context, state.error);
+            showSnackBar(context, state.error);
           } else if (state is BlogSucessState) {
             Navigator.pushAndRemoveUntil(
               context,

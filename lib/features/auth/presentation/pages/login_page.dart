@@ -8,6 +8,7 @@ import 'package:clean_archtecture/features/auth/presentation/bloc/auth_state.dar
 import 'package:clean_archtecture/features/auth/presentation/pages/signup_pages.dart';
 import 'package:clean_archtecture/features/auth/presentation/widgets/auth_coustom_btn.dart';
 import 'package:clean_archtecture/features/auth/presentation/widgets/coustomTextField.dart';
+import 'package:clean_archtecture/features/blog/presentation/page/blog_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,7 +39,13 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(13.0),
           child: BlocConsumer<AuthBloc, AuthBlocState>(
             listener: (BuildContext context, AuthBlocState state) { 
-              
+              if (state is AuthSuccesState) {
+                Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const Blogpage()),
+                (Route<dynamic> route) => false,
+              );
+              }
              },
             builder: (BuildContext context, AuthBlocState state) { 
               if(state is AuthLoadingState){
@@ -47,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
               else if(state is AuthFailureState){
                  return Text(state.message);
               }
+            
               else{
               return Form(
               key: signformkey,

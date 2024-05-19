@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 // also we use class name AppPallete
 class AppColors {
   static const Color backgroundColor = Color.fromRGBO(24, 24, 32, 1);
@@ -10,4 +11,6 @@ class AppColors {
   static const Color greyColor = Colors.grey;
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;
+  static const Color culturedColor = Color(0xFFF8F8F8);
+  static const Color cobaltBlue = Color(0xFF2E58E6);
 }

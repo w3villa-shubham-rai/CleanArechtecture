@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void showSnackbar(BuildContext context, String contend) {
+void showSnackBar(BuildContext context, String contend) {
   final snackBar = SnackBar(
     content: Text(contend),
     backgroundColor: Colors.teal,
