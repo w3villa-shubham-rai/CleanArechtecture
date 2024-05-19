@@ -13,8 +13,8 @@ class BlogLocalRemoteDataSourceImpl extends BlogLocalRemoteDataSource{
   List<BlogModel> loadBlogs() {
     List<BlogModel> blogs = [];
     box.read(() {
-      for (int i = 0; i <= box.length;) {
-        box.add(BlogModel.fromJson(box.get(i.toString())));
+      for (int i = 0; i < box.length; i++) {
+        blogs.add(BlogModel.fromJson(box.get(i.toString())));
       }
 
     });
@@ -25,7 +25,7 @@ class BlogLocalRemoteDataSourceImpl extends BlogLocalRemoteDataSource{
   void uploadLocalBlogs({required List<BlogModel> blogs}) {
     box.clear();
    box.write(() {
-    for(int i=0;i<=blogs.length;i++){
+    for(int i=0;i<blogs.length;i++){
       box.put(i.toString(), blogs[i].toJson());
     }
    });

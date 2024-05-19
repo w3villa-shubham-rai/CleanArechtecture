@@ -45,11 +45,13 @@ class BlogReposToryImp implements BlogRepository {
       blogModel = blogModel.copyWith(
         imageUrl: imageUrl,
       );
-      final uploadedblog = await blogRemoteDataSource.uploadBlog(blogModel);
-      return right(uploadedblog);
+      final uploaderBlog = await blogRemoteDataSource.uploadBlog(blogModel);
+      return right(uploaderBlog);
     } on ApplictionServerException catch (e) {
       debugPrint("error in sendBlogDataOnServer+++++++++++++++++======= ");
+      debugPrint("the error in sendBlogDataOnServer() $e ");
       return left(Failure(e.toString()));
+
     }
   }
 
@@ -60,10 +62,12 @@ class BlogReposToryImp implements BlogRepository {
         final blogs= blogLocalRemoteDataSource.loadBlogs();
         return  right(blogs);
       }
-      final allBlogs = await blogRemoteDataSource.fetchallBlogRemote();
+      final allBlogs = await blogRemoteDataSource.fetchAllBlogRemote();
       blogLocalRemoteDataSource.uploadLocalBlogs(blogs: allBlogs);
       return right(allBlogs);
+
     } catch (e) {
+     debugPrint("the error in fetchedAllBlogRepository() $e ");
       return left(Failure(e.toString()));
     }
   }

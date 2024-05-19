@@ -43,116 +43,116 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-          padding: const EdgeInsets.all(13.0),
-          child:
-              BlocConsumer<AuthBloc, AuthBlocState>(
-            listener: (context, state) {
-            if (state is AuthFailureState) {
-              showSnackBar(context, state.message);
-            }
-           else if (state is AuthSuccesState) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const Blogpage()),
-                    (Route<dynamic> route) => false,
-              );
-            }
-          }, builder: (context, state) {
-            if (state is AuthLoadingState) {
-              return const Center(child: LoaderFrame());
-            } else if (state is AuthFailureState) {
-              return Text(state.message);
-            } else {
-              return Form(
-                key: formkey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text( "Sign Up.",
-                      style: TextStyle(
-                          fontSize: 50, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    CoustomAuthTextField(
-                      hintText: 'Name',
-                      controller: nameController,
-                      isPassword: false,
-                      keyboardType: TextInputType.name,
-                      validator: (value) =>
-                          ValidatorofForm().nameValidate(value),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    CoustomAuthTextField(
-                        hintText: 'email',
-                        controller: emailController,
+      body: SingleChildScrollView(
+        child: Padding(
+            padding: const EdgeInsets.all(13.0),
+            child:
+                BlocConsumer<AuthBloc, AuthBlocState>(
+                 listener: (context, state) {
+                   if (state is AuthFailureState) {
+                  showSnackBar(context, state.message);
+               }
+                else if (state is AuthSuccesState) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Blogpage()),(Route<dynamic> route) => false,
+                );
+              }
+            }, builder: (context, state) {
+              if (state is AuthLoadingState) {
+                return const Center(child: LoaderFrame());
+              
+              } else {
+                return Form(
+                  key: formkey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text( "Sign Up.",
+                        style: TextStyle(
+                            fontSize: 50, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      CoustomAuthTextField(
+                        hintText: 'Name',
+                        controller: nameController,
+                        isPassword: false,
+                        keyboardType: TextInputType.name,
+                        validator: (value) =>
+                            ValidatorofForm().nameValidate(value),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      CoustomAuthTextField(
+                          hintText: 'email',
+                          controller: emailController,
+                          isPassword: false,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) =>
+                              ValidatorofForm().emailValidate(value)),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      CoustomAuthTextField(
+                        hintText: 'Password',
+                        controller: passwordController,
                         isPassword: false,
                         keyboardType: TextInputType.emailAddress,
                         validator: (value) =>
-                            ValidatorofForm().emailValidate(value)),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    CoustomAuthTextField(
-                      hintText: 'Password',
-                      controller: passwordController,
-                      isPassword: false,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) =>
-                          ValidatorofForm().passwordValidate(value),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    AuthCustomBtn(
-                      btnName: "Sign Up",
-                      onPressed: () {
-                        if (formkey.currentState!.validate()) {
-                          context.read<AuthBloc>().add(AuthSignUpEvent(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                              name: nameController.text.trim()));
-                        }
-                      },
-                      formKey: formkey,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
-                            ),
-                          );
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                            text: 'All ready  have an account  ',
-                            style: Theme.of(context).textTheme.titleMedium,
-                            children: [
-                              TextSpan(
-                                  text: 'Sign In', 
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                          color: AppColors.gradient2,
-                                          fontWeight: FontWeight.bold)),
-                            ]),
+                            ValidatorofForm().passwordValidate(value),
                       ),
-                    )
-                  ],
-                ),
-              );
-            }
-          })),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      AuthCustomBtn(
+                        btnName: "Sign Up",
+                        onPressed: () {
+                          if (formkey.currentState!.validate()) {
+                            context.read<AuthBloc>().add(AuthSignUpEvent(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                                name: nameController.text.trim()));
+                          }
+                        },
+                        formKey: formkey,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const LoginPage(),
+                              ),
+                            );
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                              text: 'All ready  have an account  ',
+                              style: Theme.of(context).textTheme.titleMedium,
+                              children: [
+                                TextSpan(
+                                    text: 'Sign In', 
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                            color: AppColors.gradient2,
+                                            fontWeight: FontWeight.bold)),
+                              ]),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }
+            })),
+      ),
     );
   }
 }
