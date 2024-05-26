@@ -1,4 +1,5 @@
-import 'package:clean_archtecture/core/enteties/user.dart';
+
+import 'package:clean_archtecture/core/entities/user.dart';
 
 class AppUserState {}
 

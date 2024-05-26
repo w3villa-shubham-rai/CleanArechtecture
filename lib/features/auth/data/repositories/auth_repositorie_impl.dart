@@ -1,7 +1,7 @@
+import 'package:clean_archtecture/core/entities/user.dart';
 import 'package:clean_archtecture/core/error/exception.dart';
 import 'package:clean_archtecture/core/error/failure.dart';
 import 'package:clean_archtecture/features/auth/data/dataSource/auth_remote_data_source.dart';
-import 'package:clean_archtecture/core/enteties/user.dart';
 import 'package:clean_archtecture/features/auth/data/models/user.models.dart';
 import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy.dart';
 import 'package:flutter/material.dart';

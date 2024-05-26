@@ -122,22 +122,24 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                                 strokeCap: StrokeCap.round,
                                 dashPattern: const [12, 10],
                                 color: AppColors.borderColor,
-                                child: const SizedBox(
+                                child:  SizedBox(
                                   height: 150,
                                   width: double.infinity,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
+                                       Icon(
                                         Icons.folder_open,
                                         size: 45,
+                                        color: Theme.of(context).colorScheme.inversePrimary,
                                       ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 20,
                                       ),
                                       Text(
                                         "Select Your Image",
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.inversePrimary),
+
                                       ),
                                     ],
                                   ),

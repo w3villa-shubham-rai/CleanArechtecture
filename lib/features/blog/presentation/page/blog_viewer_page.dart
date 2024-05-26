@@ -44,8 +44,8 @@ class BlogViewerPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text((forMatedDateTime(blog.updatedAt)),style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColors.whiteColor),),
-                      Text("${calculatingReadingTimeOfBloc(blog.content)} minutes",style: const TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColors.whiteColor),),
+                      Text((forMatedDateTime(blog.updatedAt)),style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.secondary),),
+                      Text("${calculatingReadingTimeOfBloc(blog.content)} minutes",style:  TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.secondary)),
                     ],
                   ),
                 ),
@@ -55,8 +55,8 @@ class BlogViewerPage extends StatelessWidget {
 
                 ),
                  Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: Text( blog.content,style: const TextStyle(fontSize: 10,fontWeight: FontWeight.bold,color: AppColors.greyColor),),
+                  padding:  const EdgeInsets.only(top: 15),
+                  child: Text( blog.content,style:  TextStyle(fontSize: 10,fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.onSurface),),
                 ),
               ],
             ),

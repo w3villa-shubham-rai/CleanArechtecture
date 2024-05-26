@@ -46,20 +46,20 @@ class _BlogCardState extends State<BlogCard> {
                     children: widget.blog.topics
                         .map(
                           (topics) => Padding(
-                            padding:  EdgeInsets.all(8.0),
+                            padding:  const EdgeInsets.all(8.0),
                             child: Container(
                               height: 50,
                               width: 150,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(9),
-                                  color:AppColors.cobaltBlue),
+                                  color:Theme.of(context).colorScheme.onSurface),
                               child: Center(
                                   child: Text(
                                 topics,
                                 textAlign: TextAlign.center,
-                                style: const TextStyle(
+                                style:  TextStyle(
                                   fontSize: 13,
-                                  color: AppColors.whiteColor,
+                                  color:Theme.of(context).colorScheme.onSecondary,
                                   fontWeight: FontWeight.bold,
                                 ),
                               )),
@@ -76,9 +76,9 @@ class _BlogCardState extends State<BlogCard> {
                   child: Text(
                     textAlign: TextAlign.center,
                     widget.blog.title,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 22,
-                      color: AppColors.borderColor,
+                      color:Theme.of(context).colorScheme.onSecondary,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -91,8 +91,8 @@ class _BlogCardState extends State<BlogCard> {
                 padding: EdgeInsets.only(left: 10, bottom: 17),
                 child: Text(
                   '${calculatingReadingTimeOfBloc(widget.blog.content)} minutes',
-                  style: const TextStyle(
-                      color: AppColors.borderColor, fontWeight: FontWeight.w700),
+                  style:  TextStyle(
+                      color:Theme.of(context).colorScheme.onSecondary,fontWeight: FontWeight.w700),
                 ),
               )
             ],

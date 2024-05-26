@@ -22,12 +22,8 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       {required File image, required BlogModel blogModel}) async {
     try {
       // herer id means user id(poster id= user login id)
-      await supabaseClient.storage
-          .from('blog_images')
-          .upload(blogModel.id, image);
-      return supabaseClient.storage
-          .from('blog_images')
-          .getPublicUrl(blogModel.id);
+      await supabaseClient.storage.from('blog_images').upload(blogModel.id, image);
+      return supabaseClient.storage.from('blog_images').getPublicUrl(blogModel.id);
     } catch (message) {
       debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
       throw ApplictionServerException(

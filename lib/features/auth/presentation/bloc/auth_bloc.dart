@@ -1,5 +1,5 @@
 import 'package:clean_archtecture/core/common/cubits/app_user/app_user_cubit.dart';
-import 'package:clean_archtecture/core/enteties/user.dart';
+import 'package:clean_archtecture/core/entities/user.dart';
 import 'package:clean_archtecture/core/usecase/usecase.dart';
 import 'package:clean_archtecture/features/auth/domain/usecases/current_user_Usecase.dart';
 import 'package:clean_archtecture/features/auth/domain/usecases/user_login_usecase.dart';
