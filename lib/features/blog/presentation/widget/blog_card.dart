@@ -1,6 +1,5 @@
-import 'package:clean_archtecture/core/theme/app_pallet.dart';
+
 import 'package:clean_archtecture/core/utils/reading_Time_Calculate.dart';
-import 'package:clean_archtecture/features/blog/data/models/blog_model.dart';
 import 'package:clean_archtecture/features/blog/domain/entites/blog.dart';
 import 'package:clean_archtecture/features/blog/presentation/page/blog_viewer_page.dart';
 import 'package:flutter/cupertino.dart';

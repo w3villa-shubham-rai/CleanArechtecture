@@ -35,17 +35,20 @@ class AppLightTheme {
       primaryColor: AppColors.borderColor,
       primaryColorLight: AppColors.whiteColor,
       primaryColorDark: AppColors.lightGunMetal,
-     drawerTheme: DrawerThemeData(
+      drawerTheme: DrawerThemeData(
          backgroundColor: AppColors.cobaltBlue,
-       shape: Border.all(
+         shape: Border.all(
          color: AppColors.pigmentRed,
        )
-     )
-
+      ),
+      textTheme: TextTheme(
+          bodyLarge: TextStyle(fontFamily: 'robotoBold',color:lightColorScheme.secondaryContainer,fontSize: 25),
+          bodySmall: TextStyle(fontFamily: 'robotoBold',color:lightColorScheme.onSurface,fontSize: 12),
+          bodyMedium: TextStyle(fontFamily: 'robotoBold',color:lightColorScheme.secondary,fontSize: 15)
+      ),
     );
   }
 }
-
 
 
 const ColorScheme lightColorScheme = ColorScheme(
@@ -64,3 +67,4 @@ const ColorScheme lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   inversePrimary:  AppColors.cobaltBlue,
 );
+

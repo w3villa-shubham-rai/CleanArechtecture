@@ -1,5 +1,4 @@
 import 'package:clean_archtecture/core/services/theme_service.dart';
-import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/app_enum.dart';
 import 'package:clean_archtecture/core/utils/loader_frame.dart';
 import 'package:clean_archtecture/core/utils/show_snackbar.dart';
@@ -62,6 +61,14 @@ class _BlogpageState extends State<Blogpage> {
                 onTap: () {
                   ThemeService.themeService.updateTheme(AppTheme.dark);
                   Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                title: const Text('AI Chat'),
+                onTap: () {
+
+                  // ThemeService.themeService.updateTheme(AppTheme.darkBlue);
+                  // Navigator.pop(context);
                 },
               ),
             ],
