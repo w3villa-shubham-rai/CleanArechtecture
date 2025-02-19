@@ -10,6 +10,7 @@ import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart
 import 'package:clean_archtecture/features/blog/data/dataSource/blog_remote_data_source.dart';
 import 'package:clean_archtecture/features/blog/data/repositories/blog_repositry_impl.dart';
 import 'package:clean_archtecture/features/blog/domain/repository/blog_repository.dart';
+import 'package:clean_archtecture/features/blog/domain/usecases/deleteblog_usecase.dart';
 import 'package:clean_archtecture/features/blog/domain/usecases/fetchblog_usecase.dart';
 import 'package:clean_archtecture/features/blog/domain/usecases/uploadBlog_usecase.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_bloc.dart';
@@ -76,9 +77,7 @@ void _initauth() {
 
 void _initBlog() {
   // Datasource
-  serviceLocator.registerFactory<BlogRemoteDataSource>(() => BlogRemoteDataSourceImpl(
-            serviceLocator(),
-          ));
+  serviceLocator.registerFactory<BlogRemoteDataSource>(() => BlogRemoteDataSourceImpl(serviceLocator(), ));
   ///+++++++++++++++++ all dependency injection here  ++++++++++++++++++
 
 
@@ -92,8 +91,12 @@ void _initBlog() {
   // Usecae
   serviceLocator.registerFactory<FethchAllBlogsUseCase>(
       () => FethchAllBlogsUseCase(serviceLocator()));
+   // Usecae
+  serviceLocator.registerFactory<DeleteBlogUseCase>(() => DeleteBlogUseCase(serviceLocator()));
   // Bloc
   serviceLocator.registerLazySingleton(() => BlogBloc(
       serviceLocator<UploadBlogUseCase>(),
-      serviceLocator<FethchAllBlogsUseCase>()));
+      serviceLocator<FethchAllBlogsUseCase>(),
+      serviceLocator<DeleteBlogUseCase>(),
+      ));
 }

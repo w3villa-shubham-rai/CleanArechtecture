@@ -14,6 +14,8 @@ abstract interface class BlogRepository{
 
   
    Future<Either<Failure,List<Blog>>> fetchedAllBlogRepository();
+   
+   Future<void> deleteBlog({required String blogId});
 }
 
 

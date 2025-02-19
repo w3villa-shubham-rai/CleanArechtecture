@@ -3,6 +3,7 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 abstract interface class InterNetCheckedData{
   Future<bool> get isConnected;
 }
+
 class InterNetCheckedDataImpl implements InterNetCheckedData{
   final InternetConnection internetConnection;
   InterNetCheckedDataImpl(this.internetConnection);

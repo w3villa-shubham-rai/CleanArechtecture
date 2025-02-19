@@ -1,0 +1,6 @@
+class AiEvent{
+}
+
+class AiEventCall{
+  
+}

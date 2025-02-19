@@ -1,10 +1,12 @@
 
 import 'package:clean_archtecture/core/utils/reading_Time_Calculate.dart';
 import 'package:clean_archtecture/features/blog/domain/entites/blog.dart';
+import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
+import 'package:clean_archtecture/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:clean_archtecture/features/blog/presentation/page/blog_viewer_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class BlogCard extends StatefulWidget {
   final Blog blog;
@@ -86,13 +88,27 @@ class _BlogCardState extends State<BlogCard> {
               const SizedBox(
                 height: 50,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 10, bottom: 17),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                padding: const EdgeInsets.only(left: 10, bottom: 17),
                 child: Text(
                   '${calculatingReadingTimeOfBloc(widget.blog.content)} minutes',
                   style:  TextStyle(
                       color:Theme.of(context).colorScheme.onSecondary,fontWeight: FontWeight.w700),
                 ),
+              ),
+              InkWell(
+                onTap: () {
+                     context.read<BlogBloc>().add(BlogDeleteEvent(blogId: widget.blog.id));
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Icon(Icons.delete,size: 20,color: Colors.amber,),
+                ),
+              ),
+              ],
               )
             ],
           ),

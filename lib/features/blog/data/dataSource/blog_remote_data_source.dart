@@ -9,6 +9,7 @@ abstract interface class BlogRemoteDataSource {
   Future<BlogModel> uploadBlog(BlogModel blog);
   Future<String> uploadingBlogImage({required File image, required BlogModel blogModel});
   Future<List<BlogModel>> fetchAllBlogRemote();
+  Future<void> deleteblogInRemoteDataSource({required String blogId});
 }
 
 class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
@@ -22,8 +23,8 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       {required File image, required BlogModel blogModel}) async {
     try {
       // herer id means user id(poster id= user login id)
-      await supabaseClient.storage.from('blog_images').upload(blogModel.id, image);
-      return supabaseClient.storage.from('blog_images').getPublicUrl(blogModel.id);
+      await supabaseClient.storage.from('blog_imagess').upload(blogModel.id, image);
+      return supabaseClient.storage.from('blog_imagess').getPublicUrl(blogModel.id);
     } catch (message) {
       debugPrint("error in uploadingBlogImage ++++++++++++++++ $message");
       throw ApplictionServerException(
@@ -52,5 +53,18 @@ class BlogRemoteDataSourceImpl implements BlogRemoteDataSource {
       throw ApplictionServerException(  "error in fetchallBlogRemote ${e.toString()}") ;
    }
    
+  }
+  
+  @override
+  Future<void> deleteblogInRemoteDataSource({required String blogId}) async{
+   try {
+    final deleteResPonsce=await supabaseClient.from('blogs').delete().eq('id', blogId);
+    if (deleteResPonsce.error != null) {
+      throw ApplictionServerException("Error deleting blog: ${deleteResPonsce.error!.message}");
+    }
+    debugPrint('Blog deleted successfully');
+   } catch (e) {
+      throw ApplictionServerException(  "error in fetchallBlogRemote ${e.toString()}") ;
+   }
   }
 }

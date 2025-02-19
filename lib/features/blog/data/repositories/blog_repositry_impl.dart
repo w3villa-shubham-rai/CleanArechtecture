@@ -9,7 +9,6 @@ import 'package:clean_archtecture/features/blog/domain/repository/blog_repositor
 import 'package:flutter/foundation.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../../core/network/connection_cheker.dart';
 import '../dataSource/blog_local_data_source.dart';
 
@@ -42,14 +41,17 @@ class BlogReposToryImp implements BlogRepository {
       final imageUrl = await blogRemoteDataSource.uploadingBlogImage(
           image: image, blogModel: blogModel);
 
+      debugPrint("image uploading on server $imageUrl");
+
       blogModel = blogModel.copyWith(
         imageUrl: imageUrl,
       );
       final uploaderBlog = await blogRemoteDataSource.uploadBlog(blogModel);
       return right(uploaderBlog);
-    } on ApplictionServerException catch (e) {
+    } on ApplictionServerException catch (e,stackTrace) {
       debugPrint("error in sendBlogDataOnServer+++++++++++++++++======= ");
       debugPrint("the error in sendBlogDataOnServer() $e ");
+      debugPrint("StackTrace: $stackTrace");
       return left(Failure(e.toString()));
 
     }
@@ -65,10 +67,28 @@ class BlogReposToryImp implements BlogRepository {
       final allBlogs = await blogRemoteDataSource.fetchAllBlogRemote();
       blogLocalRemoteDataSource.uploadLocalBlogs(blogs: allBlogs);
       return right(allBlogs);
-
     } catch (e) {
      debugPrint("the error in fetchedAllBlogRepository() $e ");
       return left(Failure(e.toString()));
     }
   }
+  
+  @override
+  Future<Either<Failure,void>> deleteBlog({required String blogId})async {
+    try {
+       if(! await ((interNetCheckedData.isConnected))){
+        return  left(Failure("NO Internet connection"));
+      }
+       final deleteBlogs = await blogRemoteDataSource.deleteblogInRemoteDataSource(blogId: blogId);
+      // blogLocalRemoteDataSource.uploadLocalBlogs(blogs: allBlogs);
+      return right(deleteBlogs);
+    } catch (e) {
+       debugPrint("the error in deleteBlog() $e ");
+      return left(Failure(e.toString()));
+    }
+  }
+  
+
+
+
 }

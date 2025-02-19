@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 abstract interface class BlogLocalRemoteDataSource{
   void uploadLocalBlogs({required List<BlogModel> blogs});
   List<BlogModel> loadBlogs();
+ 
 }
 
 class BlogLocalRemoteDataSourceImpl extends BlogLocalRemoteDataSource{
@@ -30,5 +31,9 @@ class BlogLocalRemoteDataSourceImpl extends BlogLocalRemoteDataSource{
     }
    });
   }
+
   
+  
+  
+
 }

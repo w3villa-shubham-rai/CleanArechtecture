@@ -17,3 +17,4 @@ final class BlogDisplaySucessState extends BlogState {
   List<Blog> blogs;
   BlogDisplaySucessState(this.blogs);
 }
+

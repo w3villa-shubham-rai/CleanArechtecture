@@ -2,6 +2,7 @@ import 'package:clean_archtecture/core/services/theme_service.dart';
 import 'package:clean_archtecture/core/utils/app_enum.dart';
 import 'package:clean_archtecture/core/utils/loader_frame.dart';
 import 'package:clean_archtecture/core/utils/show_snackbar.dart';
+import 'package:clean_archtecture/features/aichat/presentation/page/chat_home_page.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_State.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_bloc.dart';
@@ -66,7 +67,7 @@ class _BlogpageState extends State<Blogpage> {
               ListTile(
                 title: const Text('AI Chat'),
                 onTap: () {
-
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const GeminiChatScreen(),));
                   // ThemeService.themeService.updateTheme(AppTheme.darkBlue);
                   // Navigator.pop(context);
                 },

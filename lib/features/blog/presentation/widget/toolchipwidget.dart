@@ -1,15 +1,13 @@
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ToolChipWidget extends StatefulWidget {
   final String btnName;
   VoidCallback blogTypeFunction;
   Color btnColor;
   final Function(String,bool) onButtonClicked;
-  ToolChipWidget(
-      {super.key,
-      required this.btnName,
+  ToolChipWidget({super.key,
+       required this.btnName,
       required this.blogTypeFunction,
       required this.onButtonClicked,
       this.btnColor = AppColors.backgroundColor});

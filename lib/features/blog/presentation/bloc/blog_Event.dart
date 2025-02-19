@@ -19,3 +19,8 @@ final class BlogUploadEvent extends BlogEvent {
 
 
 final class FetchallBlogEvent extends BlogEvent{}
+
+final class BlogDeleteEvent extends BlogEvent{
+  final String blogId;
+  BlogDeleteEvent({required this.blogId});
+}

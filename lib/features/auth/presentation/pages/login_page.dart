@@ -84,8 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: loginPassWordController,
                           isPassword: false,
                           keyboardType: TextInputType.emailAddress,
-                          validator: (value) =>
-                              ValidatorofForm().passwordValidate(value),
+                          validator: (value) => ValidatorofForm().passwordValidate(value),
                         ),
                         const SizedBox(
                           height: 20,
