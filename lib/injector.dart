@@ -1,5 +1,11 @@
 import 'package:clean_archtecture/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:clean_archtecture/core/network/connection_cheker.dart';
+import 'package:clean_archtecture/features/aichat/data/dataSource/datasource_base_repo_imp.dart';
+import 'package:clean_archtecture/features/aichat/data/dataSource/datasource_baser_repo.dart';
+import 'package:clean_archtecture/features/aichat/data/repositories/google_ai_repository_impl.dart';
+import 'package:clean_archtecture/features/aichat/domain/repository/google_ai_repository.dart';
+import 'package:clean_archtecture/features/aichat/domain/usecase/ai_chat_usecase.dart';
+import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_bloc.dart';
 import 'package:clean_archtecture/features/auth/data/dataSource/auth_remote_data_source.dart';
 import 'package:clean_archtecture/features/auth/data/repositories/auth_repositorie_impl.dart';
 import 'package:clean_archtecture/features/auth/domain/repositroy/authrepositroy.dart';
@@ -32,6 +38,7 @@ Future<void> initDependency() async {
 
   _initauth();
   _initBlog();
+  _initGooglAiBloc();
   Hive.defaultDirectory=(await getApplicationDocumentsDirectory()).path;
   serviceLocator.registerLazySingleton(() => Hive.box(name: 'blogs'));
   serviceLocator.registerFactory<InterNetCheckedData>(() => InterNetCheckedDataImpl(serviceLocator()));
@@ -99,4 +106,23 @@ void _initBlog() {
       serviceLocator<FethchAllBlogsUseCase>(),
       serviceLocator<DeleteBlogUseCase>(),
       ));
+}
+
+
+void _initGooglAiBloc() {
+  final serviceLocator = GetIt.instance;
+
+  // Register Data Source
+  serviceLocator.registerLazySingleton<BaseRepoOfDataSource>(() => GooglAiDataSource());
+
+  // Register Repository
+  serviceLocator.registerLazySingleton<GoogleAiRepository>(
+      () => GoogleApiImpl(serviceLocator<BaseRepoOfDataSource>()));
+
+  // Register UseCase
+  serviceLocator.registerLazySingleton<AiChatUseCases>(
+      () => AiChatUseCases(serviceLocator<GoogleAiRepository>()));
+
+  // Register Bloc
+  serviceLocator.registerFactory(() => GoogleAiBloc(serviceLocator<AiChatUseCases>()));
 }

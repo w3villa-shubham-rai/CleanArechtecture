@@ -3,6 +3,7 @@ import 'package:clean_archtecture/core/common/cubits/app_user/app_user_state.dar
 import 'package:clean_archtecture/core/services/theme_service.dart';
 import 'package:clean_archtecture/core/utils/app_preferences.dart';
 import 'package:clean_archtecture/core/utils/app_type_def.dart';
+import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_bloc.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_event.dart';
 import 'package:clean_archtecture/features/auth/presentation/pages/login_page.dart';
@@ -27,6 +28,9 @@ void main() async {
       ),
       BlocProvider(
         create: (_) => serviceLocator<BlogBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => serviceLocator<GoogleAiBloc>(),
       ),
     ],
     child: const MyApp(),
