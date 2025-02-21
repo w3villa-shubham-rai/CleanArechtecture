@@ -1,5 +1,5 @@
 
-import 'package:clean_archtecture/core/utils/reading_Time_Calculate.dart';
+import 'package:clean_archtecture/core/utils/reading_time_calculate.dart';
 import 'package:clean_archtecture/features/blog/domain/entites/blog.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:clean_archtecture/core/error/failure.dart';
 import 'package:clean_archtecture/core/usecase/usecase.dart';
-import 'package:clean_archtecture/features/aichat/data/models/tokenType_models_params.dart';
+import 'package:clean_archtecture/features/aichat/data/models/token_type_models_params.dart';
 import 'package:clean_archtecture/features/aichat/domain/repository/google_ai_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';

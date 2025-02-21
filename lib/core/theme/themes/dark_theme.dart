@@ -132,6 +132,7 @@ class AppDarkTheme extends AppCustomTheme {
       // )
   );
 
+  @override
   TextTheme textTheme() => TextTheme(
     bodyLarge: TextStyle(
       color: colorScheme.secondary,

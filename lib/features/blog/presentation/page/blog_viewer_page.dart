@@ -1,6 +1,6 @@
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/formated_date.dart';
-import 'package:clean_archtecture/core/utils/reading_Time_Calculate.dart';
+import 'package:clean_archtecture/core/utils/reading_time_calculate.dart';
 import 'package:flutter/material.dart';
 import '../../domain/entites/blog.dart';
 

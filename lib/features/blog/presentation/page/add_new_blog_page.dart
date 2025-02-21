@@ -3,7 +3,9 @@ import 'package:clean_archtecture/Utils/pick_image.dart';
 import 'package:clean_archtecture/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:clean_archtecture/core/common/cubits/app_user/app_user_state.dart';
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
-import 'package:clean_archtecture/core/utils/loader_frame.dart';
+import 'package:clean_archtecture/core/utils/app_bar.dart';
+import 'package:clean_archtecture/core/utils/app_extension.dart';
+import 'package:clean_archtecture/core/utils/custom_shimmer_effect.dart';
 import 'package:clean_archtecture/core/utils/show_snackbar.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_State.dart';
@@ -46,7 +48,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
         context.read<BlogBloc>().add(BlogUploadEvent(
               content: blogDescriptionController.text.trim(),
               image: image!,
-              posterId: userId, // Use the string representation of UserModel ID
+              posterId: userId, 
               title: blogTitleController.text.trim(),
               topics: selectedButtons,
             ));
@@ -59,29 +61,34 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Add New Post"),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  uploadBlog();
-                },
-                icon: const Icon(Icons.done_all_rounded))
-          ],
-        ),
+        appBar:const CustomAppBar(
+        title: "Add New Post",
+        backgroundColor: AppColors.gradient1,
+        showBackButton: true,
+      ),
         body: BlocConsumer<BlogBloc, BlogState>(listener: (context, state) {
           if (state is BlogFailureState) {
             showSnackBar(context, state.error);
           } else if (state is BlogSucessState) {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const Blogpage()),
-              (Route<dynamic> route) => false,
-            );
+            context.pushAndRemoveUntil(const Blogpage());
           }
         }, builder: (context, state) {
           if (state is BlogLoadingState) {
-            return const LoaderFrame();
+            return ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: CustomShimmer(
+                    width: double.infinity,
+                    height: 300, 
+                    baseColor: Colors.grey.shade300,
+                    highlightColor: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                );
+              },
+            );
           }
           return SingleChildScrollView(
             child: Padding(
@@ -133,9 +140,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                                         size: 45,
                                         color: Theme.of(context).colorScheme.inversePrimary,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
-                                      ),
+                                      20.bh,
                                       Text(
                                         "Select Your Image",
                                         style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.inversePrimary),
@@ -158,9 +163,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                                   : selectedButtons.remove(buttonName);
                             },
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                          15.bw,
                           ToolChipWidget(
                             btnName: "Bussiness",
                             blogTypeFunction: () {},
@@ -170,9 +173,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                                   : selectedButtons.remove(buttonName);
                             },
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                           15.bw,
                           ToolChipWidget(
                             btnName: "Python",
                             blogTypeFunction: () {},
@@ -182,9 +183,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                                   : selectedButtons.remove(buttonName);
                             },
                           ),
-                          const SizedBox(
-                            width: 15,
-                          ),
+                           15.bw,
                           ToolChipWidget(
                             btnName: "Science",
                             blogTypeFunction: () {},
@@ -192,22 +191,18 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                               btncolor
                                   ? selectedButtons.add(buttonName)
                                   : selectedButtons.remove(buttonName);
-                              print("seleted name $selectedButtons");
+                              debugPrint("seleted name $selectedButtons");
                             },
                           )
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    20.bh,
                     BlogEditorTextField(
                       controller: blogTitleController,
                       hintText: "Blog Title",
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                     20.bh,
                     BlogEditorTextField(
                       controller: blogDescriptionController,
                       hintText: "Blog Title",
@@ -217,6 +212,14 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
               ),
             ),
           );
-        }));
+        }),
+        floatingActionButton: FloatingActionButton(
+        onPressed: () {
+           uploadBlog();
+        },
+        backgroundColor: AppColors.blueColor,
+        child: const Icon(Icons.done_outline_rounded, size: 30, color: AppColors.whiteColor),
+      ),
+        );
   }
 }

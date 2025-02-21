@@ -1,4 +1,4 @@
-import 'package:clean_archtecture/features/aichat/data/models/tokenType_models_params.dart';
+import 'package:clean_archtecture/features/aichat/data/models/token_type_models_params.dart';
 import 'package:clean_archtecture/features/aichat/domain/usecase/ai_chat_usecase.dart';
 import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_event.dart';
 import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_state.dart';

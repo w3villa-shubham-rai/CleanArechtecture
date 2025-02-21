@@ -1,7 +1,6 @@
 
 
 import 'package:clean_archtecture/core/base/base_service.dart';
-import 'package:clean_archtecture/core/theme/themes/app_light_theme.dart';
 import 'package:clean_archtecture/core/theme/themes/dark_blue.dart';
 import 'package:clean_archtecture/core/theme/themes/dark_theme.dart';
 import 'package:clean_archtecture/core/utils/app_enum.dart';

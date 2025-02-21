@@ -30,7 +30,7 @@ class BlogReposToryImp implements BlogRepository {
         return  left(Failure("NO Internet connection"));
       }
       BlogModel blogModel = BlogModel(
-          id: const Uuid().v1() ?? "",
+          id: const Uuid().v1(),
           posterId: posterId,
           title: title,
           content: content,

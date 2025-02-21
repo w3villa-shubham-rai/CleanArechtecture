@@ -1,7 +1,4 @@
-import 'package:clean_archtecture/features/aichat/data/dataSource/datasource_base_repo_imp.dart';
-import 'package:clean_archtecture/features/aichat/data/models/tokenType_models_params.dart';
-import 'package:clean_archtecture/features/aichat/data/repositories/google_ai_repository_impl.dart';
-import 'package:clean_archtecture/features/aichat/domain/usecase/ai_chat_usecase.dart';
+
 import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_bloc.dart';
 import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_event.dart';
 import 'package:clean_archtecture/features/aichat/presentation/bloc/google_ai_state.dart';
@@ -14,10 +11,10 @@ class GeminiChatScreen extends StatefulWidget {
   const GeminiChatScreen({super.key});
 
   @override
-  _GeminiChatScreenState createState() => _GeminiChatScreenState();
+  GeminiChatScreenState createState() => GeminiChatScreenState();
 }
 
-class _GeminiChatScreenState extends State<GeminiChatScreen> {
+class GeminiChatScreenState extends State<GeminiChatScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override

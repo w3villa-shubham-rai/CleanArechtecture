@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class ToolChipWidget extends StatefulWidget {
   final String btnName;
-  VoidCallback blogTypeFunction;
+  final VoidCallback blogTypeFunction;
   Color btnColor;
   final Function(String,bool) onButtonClicked;
   ToolChipWidget({super.key,
