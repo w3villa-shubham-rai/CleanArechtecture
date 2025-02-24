@@ -1,10 +1,7 @@
-import 'package:clean_archtecture/core/services/theme_service.dart';
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/app_bar.dart';
-import 'package:clean_archtecture/core/utils/app_enum.dart';
 import 'package:clean_archtecture/core/utils/app_extension.dart';
 import 'package:clean_archtecture/core/utils/custom_shimmer_effect.dart';
-
 import 'package:clean_archtecture/core/utils/show_snackbar.dart';
 import 'package:clean_archtecture/features/aichat/presentation/page/chat_home_page.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
@@ -15,6 +12,7 @@ import 'package:clean_archtecture/features/blog/presentation/widget/blog_card.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/theme_provider.dart';
 import '../widget/drawer_child_widget.dart';
 
 class Blogpage extends StatefulWidget {
@@ -52,21 +50,20 @@ class _BlogpageState extends State<Blogpage> {
             DrawerChildWidget(
               drawerTitleName: "Dark Mode",
               fn: () {
-                    ThemeService.themeService.updateTheme(AppTheme.darkBlue);
+                ThemeManager().setTheme('dark');
                     Navigator.pop(context);
               },
             ),
             DrawerChildWidget(
               drawerTitleName: "Light Mode",
               fn: () {
-                ThemeService.themeService.updateTheme(AppTheme.lightRed);
+                ThemeManager().setTheme('light');
                 Navigator.pop(context);
               },
             ),
             DrawerChildWidget(
               drawerTitleName: "Custom Mode",
               fn: () {
-                ThemeService.themeService.updateTheme(AppTheme.dark);
                 Navigator.pop(context);
               },
             ),

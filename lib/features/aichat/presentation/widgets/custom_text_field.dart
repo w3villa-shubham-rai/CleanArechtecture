@@ -20,7 +20,7 @@ class ChatInputField extends StatelessWidget {
             child: TextField(
               controller: controller,
               maxLines: null,
-              style: TextStyle(
+              style: const TextStyle(
                 color: AppColors.blackColor,
                 fontSize: 15,
                 fontWeight: FontWeight.normal
