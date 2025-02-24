@@ -2,8 +2,6 @@
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/loding_indicator.dart';
 import 'package:flutter/material.dart';
-
-
 class AuthCustomBtn extends StatefulWidget {
   final String btnName;
   final  VoidCallback onPressed;  

@@ -2,9 +2,9 @@ import 'package:clean_archtecture/Utils/validator.dart';
 import 'package:flutter/material.dart';
 
 class BlogEditorTextField extends StatelessWidget {
-  TextEditingController controller;
+ final TextEditingController controller;
   final String hintText;
-  BlogEditorTextField(
+  const BlogEditorTextField(
       {super.key, required this.controller, required this.hintText});
 
   @override

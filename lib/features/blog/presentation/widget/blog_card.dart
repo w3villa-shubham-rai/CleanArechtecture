@@ -1,4 +1,5 @@
 
+import 'package:clean_archtecture/core/utils/app_extension.dart';
 import 'package:clean_archtecture/core/utils/reading_time_calculate.dart';
 import 'package:clean_archtecture/features/blog/domain/entites/blog.dart';
 import 'package:clean_archtecture/features/blog/presentation/bloc/blog_Event.dart';
@@ -10,9 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlogCard extends StatefulWidget {
   final Blog blog;
-  final Color? cardcolor;
-  const BlogCard({super.key, required this.blog, required  this.cardcolor});
-
+  final Color? cardColor;
+  const BlogCard({super.key, required this.blog, required  this.cardColor});
   @override
   State<BlogCard> createState() => _BlogCardState();
 }
@@ -24,7 +24,7 @@ class _BlogCardState extends State<BlogCard> {
       padding: const EdgeInsets.all(10.0),
       child: InkWell(
         onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) =>  BlogViewerPage(blog: widget.blog,)));
+          context.push(BlogViewerPage(blog: widget.blog,));
         },
         child: Container(
           height: 300,
@@ -33,7 +33,7 @@ class _BlogCardState extends State<BlogCard> {
                 bottomLeft: const Radius.circular(20),
                 bottomRight:  const Radius.circular(20),
               ),
-              color:  widget.cardcolor),
+              color:  widget.cardColor),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,9 +85,7 @@ class _BlogCardState extends State<BlogCard> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 50,
-              ),
+              50.bh,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -95,7 +93,7 @@ class _BlogCardState extends State<BlogCard> {
                 padding: const EdgeInsets.only(left: 10, bottom: 17),
                 child: Text(
                   '${calculatingReadingTimeOfBloc(widget.blog.content)} minutes',
-                  style:  TextStyle(
+                  style: TextStyle(
                       color:Theme.of(context).colorScheme.onSecondary,fontWeight: FontWeight.w700),
                 ),
               ),

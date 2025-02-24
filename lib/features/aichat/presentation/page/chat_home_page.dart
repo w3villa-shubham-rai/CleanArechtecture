@@ -6,6 +6,9 @@ import 'package:clean_archtecture/features/aichat/presentation/widgets/custom_te
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/app_pallet.dart';
+import '../../../../core/utils/app_bar.dart';
+
 
 class GeminiChatScreen extends StatefulWidget {
   const GeminiChatScreen({super.key});
@@ -20,7 +23,11 @@ class GeminiChatScreenState extends State<GeminiChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Gemini AI ChatBot")),
+      appBar: const CustomAppBar(
+        title: "Google AI",
+        backgroundColor: AppColors.gradient1,
+        showBackButton: true,
+      ),
       body: Column(
         children: [
           Expanded(
@@ -28,8 +35,7 @@ class GeminiChatScreenState extends State<GeminiChatScreen> {
               builder: (context, state) {
                 final messages = state is AiInitalState
                     ? state.messages
-                    : (state as dynamic).messages; // Access messages in any state
-
+                    : (state as dynamic).messages;
                 return ListView.builder(
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
@@ -42,12 +48,12 @@ class GeminiChatScreenState extends State<GeminiChatScreen> {
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                         decoration: BoxDecoration(
-                          color: isUser ? Colors.blue : Colors.grey[300],
+                          color: isUser ? AppColors.blueColor :AppColors.greyColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
                           message['content']!,
-                          style: TextStyle(color: isUser ? Colors.white : Colors.black),
+                          style: TextStyle(color: isUser ?AppColors.whiteColor : AppColors.blackColor),
                         ),
                       ),
                     );

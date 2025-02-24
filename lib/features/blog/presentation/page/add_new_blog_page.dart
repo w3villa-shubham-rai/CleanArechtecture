@@ -27,10 +27,10 @@ class AddNewBlogPage extends StatefulWidget {
 class _AddNewBlogState extends State<AddNewBlogPage> {
   TextEditingController blogTitleController = TextEditingController();
   TextEditingController blogDescriptionController = TextEditingController();
-  final imagepostFormKay = GlobalKey<FormState>();
+  List<String> toolChipField = ["Computer Science", "Business", "Python", "Science",];
+  final imagePostFormKay = GlobalKey<FormState>();
   List<String> selectedButtons = [];
   File? image;
-
   void selectImage() async {
     final pickedImage = await imagePickFromGallery();
     if (pickedImage != null) {
@@ -41,19 +41,21 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
   }
 
   void uploadBlog() {
-    if (imagepostFormKay.currentState!.validate() && selectedButtons.isNotEmpty &&  image != null) {
+    if (imagePostFormKay.currentState!.validate() &&
+        selectedButtons.isNotEmpty &&
+        image != null) {
       final appUserState = context.read<AppUserCubit>().state;
       if (appUserState is AppUserLoggedIn) {
         final userId = appUserState.user.id.toString();
         context.read<BlogBloc>().add(BlogUploadEvent(
               content: blogDescriptionController.text.trim(),
               image: image!,
-              posterId: userId, 
+              posterId: userId,
               title: blogTitleController.text.trim(),
               topics: selectedButtons,
             ));
       } else {
-        debugPrint("uploadBlog() User Not LogedIn");
+        debugPrint("uploadBlog() User Not LoggedIn");
       }
     }
   }
@@ -61,165 +63,144 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar:const CustomAppBar(
+      appBar: const CustomAppBar(
         title: "Add New Post",
         backgroundColor: AppColors.gradient1,
         showBackButton: true,
       ),
-        body: BlocConsumer<BlogBloc, BlogState>(listener: (context, state) {
-          if (state is BlogFailureState) {
-            showSnackBar(context, state.error);
-          } else if (state is BlogSucessState) {
-            context.pushAndRemoveUntil(const Blogpage());
-          }
-        }, builder: (context, state) {
-          if (state is BlogLoadingState) {
-            return ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding:const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                  child: CustomShimmer(
-                    width: double.infinity,
-                    height: 300, 
-                    baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.grey.shade100,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                );
-              },
-            );
-          }
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Form(
-                key: imagepostFormKay,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    image != null
-                        ? Container(
-                            height: 250,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: AppColors.whiteColor,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 2,
-                                  )
-                                ]),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.file(
-                                  image!,
-                                  fit: BoxFit.cover,
-                                  filterQuality: FilterQuality.high,
-                                )))
-                        : InkWell(
-                            onTap: () {
-                              selectImage();
-                            },
-                            child: DottedBorder(
-                                radius: const Radius.circular(15),
-                                borderType: BorderType.RRect,
-                                strokeCap: StrokeCap.round,
-                                dashPattern: const [12, 10],
-                                color: AppColors.borderColor,
-                                child:  SizedBox(
-                                  height: 150,
-                                  width: double.infinity,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                       Icon(
-                                        Icons.folder_open,
-                                        size: 45,
-                                        color: Theme.of(context).colorScheme.inversePrimary,
-                                      ),
-                                      20.bh,
-                                      Text(
-                                        "Select Your Image",
-                                        style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.inversePrimary),
-
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: [
-                          ToolChipWidget(
-                            btnName: "Computer Science",
-                            blogTypeFunction: () {},
-                            onButtonClicked: (buttonName, btncolor) {
-                              btncolor
-                                  ? selectedButtons.add(buttonName)
-                                  : selectedButtons.remove(buttonName);
-                            },
-                          ),
-                          15.bw,
-                          ToolChipWidget(
-                            btnName: "Bussiness",
-                            blogTypeFunction: () {},
-                            onButtonClicked: (buttonName, btncolor) {
-                              btncolor
-                                  ? selectedButtons.add(buttonName)
-                                  : selectedButtons.remove(buttonName);
-                            },
-                          ),
-                           15.bw,
-                          ToolChipWidget(
-                            btnName: "Python",
-                            blogTypeFunction: () {},
-                            onButtonClicked: (buttonName, btncolor) {
-                              btncolor
-                                  ? selectedButtons.add(buttonName)
-                                  : selectedButtons.remove(buttonName);
-                            },
-                          ),
-                           15.bw,
-                          ToolChipWidget(
-                            btnName: "Science",
-                            blogTypeFunction: () {},
-                            onButtonClicked: (buttonName, btncolor) {
-                              btncolor
-                                  ? selectedButtons.add(buttonName)
-                                  : selectedButtons.remove(buttonName);
-                              debugPrint("seleted name $selectedButtons");
-                            },
-                          )
-                        ],
-                      ),
-                    ),
-                    20.bh,
-                    BlogEditorTextField(
-                      controller: blogTitleController,
-                      hintText: "Blog Title",
-                    ),
-                     20.bh,
-                    BlogEditorTextField(
-                      controller: blogDescriptionController,
-                      hintText: "Blog Title",
-                    )
-                  ],
+      body: BlocConsumer<BlogBloc, BlogState>(listener: (context, state) {
+        if (state is BlogFailureState) {
+          showSnackBar(context, state.error);
+        } else if (state is BlogSucessState) {
+          context.pushAndRemoveUntil(const Blogpage());
+        }
+      }, builder: (context, state) {
+        if (state is BlogLoadingState) {
+          return ListView.builder(
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                child: CustomShimmer(
+                  width: double.infinity,
+                  height: 300,
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
+                  borderRadius: BorderRadius.circular(10),
                 ),
+              );
+            },
+          );
+        }
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Form(
+              key: imagePostFormKay,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  image != null
+                      ? Container(
+                          height: 250,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors.whiteColor,
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.grey,
+                                  blurRadius: 2,
+                                )
+                              ]),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
+                                image!,
+                                fit: BoxFit.cover,
+                                filterQuality: FilterQuality.high,
+                              )))
+                      : InkWell(
+                          onTap: () {
+                            selectImage();
+                          },
+                          child: DottedBorder(
+                              radius: const Radius.circular(15),
+                              borderType: BorderType.RRect,
+                              strokeCap: StrokeCap.round,
+                              dashPattern: const [12, 10],
+                              color: AppColors.borderColor,
+                              child: SizedBox(
+                                height: 150,
+                                width: double.infinity,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.folder_open,
+                                      size: 45,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .inversePrimary,
+                                    ),
+                                    20.bh,
+                                    Text(
+                                      "Select Your Image",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .inversePrimary),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(children: [
+                      ...List.generate(toolChipField.length, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 3),
+                          child: ToolChipWidget(
+                            btnName: toolChipField[index],
+                            blogTypeFunction: () {},
+                            onButtonClicked: (buttonName, btncolor) {
+                              btncolor
+                                  ? selectedButtons.add(buttonName)
+                                  : selectedButtons.remove(buttonName);
+                            },
+                          ),
+                        );
+                      })
+                    ]),
+                  ),
+                  20.bh,
+                  BlogEditorTextField(
+                    controller: blogTitleController,
+                    hintText: "Blog Title",
+                  ),
+                  20.bh,
+                  BlogEditorTextField(
+                    controller: blogDescriptionController,
+                    hintText: "Blog Title",
+                  )
+                ],
               ),
             ),
-          );
-        }),
-        floatingActionButton: FloatingActionButton(
+          ),
+        );
+      }),
+      floatingActionButton: FloatingActionButton(
         onPressed: () {
-           uploadBlog();
+          uploadBlog();
         },
         backgroundColor: AppColors.blueColor,
-        child: const Icon(Icons.done_outline_rounded, size: 30, color: AppColors.whiteColor),
+        child: const Icon(Icons.done_outline_rounded,
+            size: 30, color: AppColors.whiteColor),
       ),
-        );
+    );
   }
 }

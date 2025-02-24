@@ -6,11 +6,7 @@ class ToolChipWidget extends StatefulWidget {
   final VoidCallback blogTypeFunction;
   Color btnColor;
   final Function(String,bool) onButtonClicked;
-  ToolChipWidget({super.key,
-       required this.btnName,
-      required this.blogTypeFunction,
-      required this.onButtonClicked,
-      this.btnColor = AppColors.backgroundColor});
+  ToolChipWidget({super.key, required this.btnName, required this.blogTypeFunction, required this.onButtonClicked, this.btnColor = AppColors.backgroundColor});
 
   @override
   State<ToolChipWidget> createState() => _ToolChipWidgetState();

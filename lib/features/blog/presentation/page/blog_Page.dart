@@ -15,6 +15,8 @@ import 'package:clean_archtecture/features/blog/presentation/widget/blog_card.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../widget/drawer_child_widget.dart';
+
 class Blogpage extends StatefulWidget {
   const Blogpage({super.key});
   @override
@@ -47,32 +49,30 @@ class _BlogpageState extends State<Blogpage> {
               ),
               child: Text('Theme Change'),
             ),
-            ListTile(
-              title: const Text('Dark Mode'),
-              onTap: () {
-                ThemeService.themeService.updateTheme(AppTheme.darkBlue);
-                Navigator.pop(context);
+            DrawerChildWidget(
+              drawerTitleName: "Dark Mode",
+              fn: () {
+                    ThemeService.themeService.updateTheme(AppTheme.darkBlue);
+                    Navigator.pop(context);
               },
             ),
-            ListTile(
-              title: const Text(
-                'Light Mode',
-              ),
-              onTap: () {
+            DrawerChildWidget(
+              drawerTitleName: "Light Mode",
+              fn: () {
                 ThemeService.themeService.updateTheme(AppTheme.lightRed);
                 Navigator.pop(context);
               },
             ),
-            ListTile(
-              title: const Text('Custom Mode'),
-              onTap: () {
+            DrawerChildWidget(
+              drawerTitleName: "Custom Mode",
+              fn: () {
                 ThemeService.themeService.updateTheme(AppTheme.dark);
                 Navigator.pop(context);
               },
             ),
-            ListTile(
-              title: const Text('AI Chat'),
-              onTap: () {
+            DrawerChildWidget(
+              drawerTitleName: "Ai Tab",
+              fn: () {
                 context.push(const GeminiChatScreen());
               },
             ),
@@ -110,7 +110,7 @@ class _BlogpageState extends State<Blogpage> {
                 final blog = state.blogs[index];
                 return BlogCard(
                   blog: blog,
-                  cardcolor: index % 2 == 0
+                  cardColor: index % 2 == 0
                       ? Theme.of(context).primaryColor
                       : Theme.of(context).primaryColorDark,
                 );
