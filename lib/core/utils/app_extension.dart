@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/theme_extension/Apptheme_custom_key_colors.dart';
+
 //  **Spacing Extensions (bw & bh)**
 extension WidthSizeExtension on num{
   get bw => SizedBox(width: toDouble(),);
@@ -35,4 +37,13 @@ extension NavigationExtension on BuildContext{
 
   /// **Check if navigation can pop**
   bool canPop() => Navigator.canPop(this);
+
+
+
+//   theme short extension here
+
+  AppThemeColors? get themeColors => Theme.of(this).extension<AppThemeColors>();
+  ThemeData get theme=>Theme.of(this);
+
+
 } 

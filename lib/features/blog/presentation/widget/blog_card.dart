@@ -1,4 +1,3 @@
-
 import 'package:clean_archtecture/core/utils/app_extension.dart';
 import 'package:clean_archtecture/core/utils/reading_time_calculate.dart';
 import 'package:clean_archtecture/features/blog/domain/entites/blog.dart';
@@ -53,14 +52,14 @@ class _BlogCardState extends State<BlogCard> {
                               width: 150,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(9),
-                                  color:Theme.of(context).colorScheme.onSurface),
+                                  color:context.themeColors?.chipColor),
                               child: Center(
                                   child: Text(
                                 topics,
                                 textAlign: TextAlign.center,
                                 style:  TextStyle(
                                   fontSize: 13,
-                                  color:Theme.of(context).colorScheme.onSecondary,
+                                  color:context.themeColors?.textColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               )),
@@ -79,7 +78,7 @@ class _BlogCardState extends State<BlogCard> {
                     widget.blog.title,
                     style:  TextStyle(
                       fontSize: 22,
-                      color:Theme.of(context).colorScheme.onSecondary,
+                      color:context.themeColors?.textColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -94,16 +93,16 @@ class _BlogCardState extends State<BlogCard> {
                 child: Text(
                   '${calculatingReadingTimeOfBloc(widget.blog.content)} minutes',
                   style: TextStyle(
-                      color:Theme.of(context).colorScheme.onSecondary,fontWeight: FontWeight.w700),
+                      color:context.themeColors?.textColor,fontWeight: FontWeight.w700),
                 ),
               ),
               InkWell(
                 onTap: () {
                      context.read<BlogBloc>().add(BlogDeleteEvent(blogId: widget.blog.id));
                 },
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 20),
-                  child: Icon(Icons.delete,size: 20,color: Colors.amber,),
+                child:  Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Icon(Icons.delete,size: 20,color: context.themeColors?.deleteIconColor),
                 ),
               ),
               ],

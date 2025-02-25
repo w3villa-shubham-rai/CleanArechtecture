@@ -65,6 +65,7 @@ class _BlogpageState extends State<Blogpage> {
             DrawerChildWidget(
               drawerTitleName: "Custom Mode",
               fn: () {
+                ThemeManager().setTheme('custom');
                 Navigator.pop(context);
               },
             ),
@@ -109,8 +110,8 @@ class _BlogpageState extends State<Blogpage> {
                 return BlogCard(
                   blog: blog,
                   cardColor: index % 2 == 0
-                      ? Theme.of(context).extension<AppThemeColors>()?.firstCardBackGroundColor
-                      : Theme.of(context).extension<AppThemeColors>()?.secondCardBackGroundColor
+                      ? context.themeColors?.firstCardBackGroundColor
+                      : context.themeColors?.secondCardBackGroundColor
                 );
               },
             );
@@ -123,9 +124,12 @@ class _BlogpageState extends State<Blogpage> {
         onPressed: () {
           context.push(const AddNewBlogPage());
         },
-        backgroundColor: AppColors.blueColor,
+        backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+            ? context.themeColors?.chipColor // Dark mode
+            : context.themeColors?.secondCardBackGroundColor, // Light mode
         child: const Icon(Icons.add, size: 30, color: AppColors.whiteColor),
       ),
+
     );
   }
 }

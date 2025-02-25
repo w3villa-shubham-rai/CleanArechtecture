@@ -1,3 +1,5 @@
+
+
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:flutter/material.dart';
 import '../theme_extension/Apptheme_custom_key_colors.dart';
@@ -34,6 +36,7 @@ class LightTheme{
           borderRadius: BorderRadius.all(Radius.circular(8)),
           borderSide: BorderSide(color: Colors.red, width: 2),
         ),
+
       ),
 
     extensions: const <ThemeExtension<dynamic>>[
@@ -42,11 +45,11 @@ class LightTheme{
         gradient2: Color.fromRGBO(251, 109, 169, 1),
         backgroundColor: Colors.white,
         borderColor: Colors.black,
-        textColor: Colors.blue,
+        textColor:AppColors.whiteColor,
         firstCardBackGroundColor: AppColors.cobaltBlue,
         secondCardBackGroundColor: AppColors.lightBlue,
-
-
+        chipColor:AppColors.lightBrown,
+        deleteIconColor:AppColors.vividYellow
       ),
     ]
   );

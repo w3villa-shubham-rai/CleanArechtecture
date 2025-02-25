@@ -9,6 +9,8 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   final Color textColor;
   final Color firstCardBackGroundColor;
   final Color secondCardBackGroundColor;
+  final Color chipColor;
+  final Color deleteIconColor;
 
   const AppThemeColors({
     required this.gradient1,
@@ -18,6 +20,8 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     required this.textColor,
     required this.firstCardBackGroundColor,
     required this.secondCardBackGroundColor,
+    required this.chipColor,
+    required this.deleteIconColor,
   });
 
   @override
@@ -29,6 +33,8 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     Color? textColor,
     Color? firstCardBackGroundColor,
     Color? secondCardBackGroundColor,
+    Color? chipColor,
+    Color? deleteIconColor
   }) {
     return AppThemeColors(
       gradient1: gradient1 ?? this.gradient1,
@@ -37,7 +43,9 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       borderColor: borderColor ?? this.borderColor,
       textColor: textColor ?? this.textColor,
       firstCardBackGroundColor: firstCardBackGroundColor ?? this.firstCardBackGroundColor,
-      secondCardBackGroundColor: secondCardBackGroundColor?? this.secondCardBackGroundColor
+      secondCardBackGroundColor: secondCardBackGroundColor?? this.secondCardBackGroundColor,
+      chipColor: chipColor?? this.chipColor,
+        deleteIconColor:deleteIconColor?? this.deleteIconColor
     );
   }
 
@@ -51,7 +59,9 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
         borderColor: Color.lerp(borderColor, other.borderColor, t)!,
         textColor: Color.lerp(textColor, other.textColor, t)!,
         firstCardBackGroundColor: Color.lerp(firstCardBackGroundColor, other.firstCardBackGroundColor, t)!,
-        secondCardBackGroundColor:Color.lerp(secondCardBackGroundColor, other.secondCardBackGroundColor, t)!
+        secondCardBackGroundColor:Color.lerp(secondCardBackGroundColor, other.secondCardBackGroundColor, t)!,
+        chipColor:Color.lerp(chipColor, other.chipColor, t)!,
+        deleteIconColor:Color.lerp(deleteIconColor, other.deleteIconColor, t)!
     );
   }
 }
