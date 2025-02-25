@@ -11,8 +11,6 @@ import 'package:clean_archtecture/features/blog/presentation/page/add_new_blog_p
 import 'package:clean_archtecture/features/blog/presentation/widget/blog_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../core/theme/theme_extension/Apptheme_custom_key_colors.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../widget/drawer_child_widget.dart';
 
@@ -33,9 +31,11 @@ class _BlogpageState extends State<Blogpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         title: "Blog Page",
-        backgroundColor: AppColors.gradient1,
+        backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+            ? (context.themeColors!.firstCardBackGroundColor)
+            : (context.themeColors!.gradient1),
         showBackButton: false,
       ),
       drawer: Drawer(
