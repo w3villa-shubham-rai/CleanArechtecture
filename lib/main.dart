@@ -9,7 +9,6 @@ import 'package:clean_archtecture/features/blog/presentation/page/blog_Page.dart
 import 'package:clean_archtecture/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'core/theme/theme_provider.dart';
 
 void main() async {

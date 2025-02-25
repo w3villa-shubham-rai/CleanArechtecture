@@ -37,4 +37,5 @@ class AppColors {
   static const Color romanSilver = Color.fromRGBO(137, 141, 154, 0.635);
   static const Color darkBlueColor = Color.fromARGB(126, 0, 8, 33);
   static const Color transparent = Colors.transparent;
+  static const Color lightBlue=Colors.lightBlue;
 }

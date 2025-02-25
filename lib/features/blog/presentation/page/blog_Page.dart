@@ -12,6 +12,7 @@ import 'package:clean_archtecture/features/blog/presentation/widget/blog_card.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/theme/theme_extension/Apptheme_custom_key_colors.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../widget/drawer_child_widget.dart';
 
@@ -108,8 +109,8 @@ class _BlogpageState extends State<Blogpage> {
                 return BlogCard(
                   blog: blog,
                   cardColor: index % 2 == 0
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context).primaryColorDark,
+                      ? Theme.of(context).extension<AppThemeColors>()?.firstCardBackGroundColor
+                      : Theme.of(context).extension<AppThemeColors>()?.secondCardBackGroundColor
                 );
               },
             );
@@ -128,3 +129,4 @@ class _BlogpageState extends State<Blogpage> {
     );
   }
 }
+// Theme.of(context).extension<AppThemeColors>();
