@@ -1,7 +1,9 @@
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
+import 'package:clean_archtecture/core/utils/app_extension.dart';
 import 'package:clean_archtecture/core/utils/formated_date.dart';
 import 'package:clean_archtecture/core/utils/reading_time_calculate.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/utils/app_bar.dart';
 import '../../domain/entites/blog.dart';
 
 class BlogViewerPage extends StatelessWidget {
@@ -10,7 +12,11 @@ class BlogViewerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(),
+      appBar: CustomAppBar(
+        title: "Blog Details",
+        backgroundColor: context.theme.brightness==Brightness.dark?context.themeColors!.backgroundColor:context.themeColors!.gradient1,
+        showBackButton: true,
+      ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Padding(
@@ -23,22 +29,27 @@ class BlogViewerPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color:AppColors.whiteColor ,
                     borderRadius: BorderRadius.circular(15),
-                    // boxShadow: const [
-                    //  BoxShadow(
-                    //     color: Colors.grey,
-                    //     blurRadius: 3,
-                    //     spreadRadius: 1,
-                    //   ),
-                    // ]
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.network(blog.imageUrl,fit: BoxFit.cover,)),
+                    child: Image.network(
+                      blog.imageUrl,fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) {
+                          return child; // Image loaded successfully
+                        }
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                (loadingProgress.expectedTotalBytes ?? 1)
+                                : null, // Show progress if available
+                          ),
+                        );
+                      },
+                    )),
                 ),
-                //  Padding(
-                //   padding: const EdgeInsets.only(top: 6),
-                //   child: Text("${blog.posterName}",style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold,color: AppColors.whiteColor),),
-                // ),
+
                  Padding(
                   padding: const EdgeInsets.only(top: 15),
                   child: Row(

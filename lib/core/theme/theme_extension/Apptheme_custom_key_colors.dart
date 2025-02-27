@@ -11,6 +11,8 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   final Color secondCardBackGroundColor;
   final Color chipColor;
   final Color deleteIconColor;
+  final Color darkGardienTone;
+  final Color darkGardienTTwo;
 
   const AppThemeColors({
     required this.gradient1,
@@ -22,6 +24,8 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     required this.secondCardBackGroundColor,
     required this.chipColor,
     required this.deleteIconColor,
+    required this.darkGardienTone,
+    required this.darkGardienTTwo,
   });
 
   @override
@@ -34,7 +38,9 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     Color? firstCardBackGroundColor,
     Color? secondCardBackGroundColor,
     Color? chipColor,
-    Color? deleteIconColor
+    Color? deleteIconColor,
+    Color? darkGardienTone,
+    Color? darkGardienTTwo
   }) {
     return AppThemeColors(
       gradient1: gradient1 ?? this.gradient1,
@@ -44,8 +50,9 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       textColor: textColor ?? this.textColor,
       firstCardBackGroundColor: firstCardBackGroundColor ?? this.firstCardBackGroundColor,
       secondCardBackGroundColor: secondCardBackGroundColor?? this.secondCardBackGroundColor,
-      chipColor: chipColor?? this.chipColor,
-        deleteIconColor:deleteIconColor?? this.deleteIconColor
+      chipColor: chipColor?? this.chipColor, deleteIconColor:deleteIconColor?? this.deleteIconColor,
+      darkGardienTone: darkGardienTone ?? this.darkGardienTone,
+        darkGardienTTwo:darkGardienTTwo??this.darkGardienTTwo
     );
   }
 
@@ -61,7 +68,9 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
         firstCardBackGroundColor: Color.lerp(firstCardBackGroundColor, other.firstCardBackGroundColor, t)!,
         secondCardBackGroundColor:Color.lerp(secondCardBackGroundColor, other.secondCardBackGroundColor, t)!,
         chipColor:Color.lerp(chipColor, other.chipColor, t)!,
-        deleteIconColor:Color.lerp(deleteIconColor, other.deleteIconColor, t)!
+        deleteIconColor:Color.lerp(deleteIconColor, other.deleteIconColor, t)!,
+        darkGardienTone:Color.lerp(darkGardienTone, other.darkGardienTone, t)!,
+        darkGardienTTwo:Color.lerp(darkGardienTTwo, other.darkGardienTTwo, t)!
     );
   }
 }

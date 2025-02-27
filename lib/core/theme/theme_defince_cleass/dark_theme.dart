@@ -49,7 +49,10 @@ class DarkTheme {
         firstCardBackGroundColor: AppColors.lightGunMetal,
         secondCardBackGroundColor: AppColors.borderColor,
         chipColor: AppColors.romanSilver,
-        deleteIconColor: AppColors.antiFlashWhite
+        deleteIconColor: AppColors.antiFlashWhite,
+        darkGardienTone:AppColors.darkGunMetal,
+        darkGardienTTwo:AppColors.lightGunMetal,
+
       ),
     ],
   );

@@ -1,5 +1,8 @@
 
+
+
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
+import 'package:clean_archtecture/core/utils/app_extension.dart';
 import 'package:clean_archtecture/core/utils/loding_indicator.dart';
 import 'package:flutter/material.dart';
 class AuthCustomBtn extends StatefulWidget {
@@ -27,10 +30,14 @@ class _AuthCustomBtnState extends State<AuthCustomBtn> {
         width: 400,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7),
-          gradient: const LinearGradient(colors: [
-            AppColors.gradient1,
-            AppColors.gradient2
-          ],
+          gradient:  LinearGradient(
+            colors: context.theme.brightness==Brightness.light?[
+            context.themeColors!.gradient1,
+              context.themeColors!.gradient2,
+          ]: [
+              context.themeColors!.darkGardienTone,
+              context.themeColors!.darkGardienTTwo,
+            ],
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
           )

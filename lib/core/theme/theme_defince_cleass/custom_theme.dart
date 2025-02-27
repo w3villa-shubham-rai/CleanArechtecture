@@ -49,7 +49,10 @@ class CustomTheme {
             firstCardBackGroundColor: AppColors.cobaltBlue,
             secondCardBackGroundColor: AppColors.lightBlue,
             chipColor:AppColors.lightBrown,
-            deleteIconColor:AppColors.vividYellow
+            deleteIconColor:AppColors.vividYellow,
+            darkGardienTone:AppColors.darkGunMetal,
+            darkGardienTTwo:AppColors.lightGunMetal,
+
         ),
       ]
   );

@@ -1,3 +1,4 @@
+
 import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/app_bar.dart';
 import 'package:clean_archtecture/core/utils/app_extension.dart';
@@ -14,13 +15,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/theme/theme_provider.dart';
 import '../widget/drawer_child_widget.dart';
 
-class Blogpage extends StatefulWidget {
-  const Blogpage({super.key});
+class BlogPage extends StatefulWidget {
+  const BlogPage({super.key});
   @override
-  State<Blogpage> createState() => _BlogpageState();
+  State<BlogPage> createState() => _BlogPageState();
 }
 
-class _BlogpageState extends State<Blogpage> {
+class _BlogPageState extends State<BlogPage> {
   @override
   void initState() {
     super.initState();
@@ -42,11 +43,15 @@ class _BlogpageState extends State<Blogpage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: context.theme.brightness==Brightness.dark?context.themeColors!.firstCardBackGroundColor:context.themeColors!.gradient1,
               ),
-              child: Text('Theme Change'),
+              child:Text('Theme Change',style: TextStyle(
+                fontSize: 22,
+                color:context.themeColors?.textColor,
+                fontWeight: FontWeight.bold,
+              ),),
             ),
             DrawerChildWidget(
               drawerTitleName: "Dark Mode",

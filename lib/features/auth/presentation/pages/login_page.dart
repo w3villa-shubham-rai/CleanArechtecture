@@ -35,10 +35,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppBar(
+        appBar: CustomAppBar(
         title: "Login",
-        backgroundColor: AppColors.gradient1, 
-        showBackButton: true, 
+          backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+              ? (context.themeColors!.firstCardBackGroundColor)
+              : (context.themeColors!.gradient1),
+        showBackButton: true,
       ),
         body: SingleChildScrollView(
           child: Padding(
@@ -46,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             child: BlocConsumer<AuthBloc, AuthBlocState>(
               listener: (BuildContext context, AuthBlocState state) {
                 if (state is AuthSuccesState) {
-                  context.pushAndRemoveUntil(const Blogpage());
+                  context.pushAndRemoveUntil(const BlogPage());
                 }
                
               },
@@ -96,16 +98,18 @@ class _LoginPageState extends State<LoginPage> {
                           child: RichText(
                             text: TextSpan(
                                 text: 'Don\'t have an account? ',
-                                style: Theme.of(context).textTheme.titleMedium,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: context.theme.brightness==Brightness.dark? context.themeColors!.borderColor:context.themeColors!.gradient1,
+                                ),
                                 children: [
                                   TextSpan(
                                       text: 'Sign Up',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                              color: AppColors.gradient2,
-                                              fontWeight: FontWeight.bold)),
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: context.theme.brightness==Brightness.dark? context.themeColors!.borderColor:context.themeColors!.gradient1,
+                                      )
+                                  ),
                                 ]),
                           ),
                         )

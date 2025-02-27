@@ -13,8 +13,14 @@ class ThemeManager {
 
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
-    String themeMode = _prefs.getString(_themeKey) ?? 'light';
-    themeNotifier.value = _getTheme(themeMode);
+    String? savedTheme = _prefs.getString(_themeKey);
+
+    if (savedTheme == null || savedTheme == 'system') {
+      Brightness systemBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+      themeNotifier.value = _getThemeFromBrightness(systemBrightness);
+    } else {
+      themeNotifier.value = _getTheme(savedTheme);
+    }
   }
 
   ThemeData _getTheme(String themeKey) {
@@ -30,8 +36,20 @@ class ThemeManager {
     }
   }
 
+  ThemeData _getThemeFromBrightness(Brightness brightness) {
+    return brightness == Brightness.dark ? AppThemes.darkTheme : AppThemes.lightTheme;
+  }
+
   Future<void> setTheme(String themeKey) async {
     await _prefs.setString(_themeKey, themeKey);
-    themeNotifier.value = _getTheme(themeKey); // Update ValueNotifier
+    themeNotifier.value = _getTheme(themeKey);
+  }
+
+  /// **Dynamically update theme when system theme changes**
+  void updateSystemTheme(Brightness brightness) {
+    String? savedTheme = _prefs.getString(_themeKey);
+    if (savedTheme == null || savedTheme == 'system') {
+      themeNotifier.value = _getThemeFromBrightness(brightness);
+    }
   }
 }

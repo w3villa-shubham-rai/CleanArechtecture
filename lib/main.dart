@@ -43,18 +43,41 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
 
-  Future appInit() async {
-    context.read<AuthBloc>().add(AuthIsUserLoggedInEvent());
-  }
+
 
 
   @override
   void initState() {
     super.initState();
     appInit();
+    WidgetsBinding.instance.addObserver(this); // Add observer to listen for theme changes
+    _updateSystemTheme(); // Initial theme update
   }
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this); // Remove observer to prevent memory leaks
+    super.dispose();
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    _updateSystemTheme(); // Update the theme dynamically
+  }
+
+  void _updateSystemTheme() {
+    debugPrint("theme Change here ");
+    Brightness brightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    ThemeManager().updateSystemTheme(brightness);
+  }
+
+  Future appInit() async {
+    context.read<AuthBloc>().add(AuthIsUserLoggedInEvent());
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +94,7 @@ class _MyAppState extends State<MyApp> {
                 },
                 builder: (context, isLoggedIn) {
                   if (isLoggedIn) {
-                    return const Blogpage();
+                    return const BlogPage();
                   }
                   else{
                     return const LoginPage();

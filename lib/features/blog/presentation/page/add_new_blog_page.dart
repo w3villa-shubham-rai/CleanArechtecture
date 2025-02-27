@@ -63,16 +63,16 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         title: "Add New Post",
-        backgroundColor: AppColors.gradient1,
+        backgroundColor: context.theme.brightness==Brightness.dark?context.themeColors!.backgroundColor:context.themeColors!.gradient1,
         showBackButton: true,
       ),
       body: BlocConsumer<BlogBloc, BlogState>(listener: (context, state) {
         if (state is BlogFailureState) {
           showSnackBar(context, state.error);
         } else if (state is BlogSucessState) {
-          context.pushAndRemoveUntil(const Blogpage());
+          context.pushAndRemoveUntil(const BlogPage());
         }
       }, builder: (context, state) {
         if (state is BlogLoadingState) {
@@ -131,7 +131,7 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                               borderType: BorderType.RRect,
                               strokeCap: StrokeCap.round,
                               dashPattern: const [12, 10],
-                              color: AppColors.borderColor,
+                              color: context.theme.brightness==Brightness.dark?context.themeColors!.borderColor:context.themeColors!.secondCardBackGroundColor,
                               child: SizedBox(
                                 height: 150,
                                 width: double.infinity,
@@ -141,19 +141,15 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                                     Icon(
                                       Icons.folder_open,
                                       size: 45,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .inversePrimary,
+                                      color: context.theme.brightness==Brightness.dark?context.themeColors!.borderColor:context.themeColors!.secondCardBackGroundColor,
                                     ),
                                     20.bh,
                                     Text(
                                       "Select Your Image",
                                       style: TextStyle(
                                           fontSize: 15,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .inversePrimary),
-                                    ),
+                                          color: context.theme.brightness==Brightness.dark?context.themeColors!.borderColor:context.themeColors!.secondCardBackGroundColor,
+                                    ),)
                                   ],
                                 ),
                               )),
@@ -165,12 +161,19 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 3),
                           child: ToolChipWidget(
+                            btnColor: selectedButtons.contains(toolChipField[index])?Colors.blue:Colors.grey.shade300,
                             btnName: toolChipField[index],
-                            blogTypeFunction: () {},
-                            onButtonClicked: (buttonName, btncolor) {
-                              btncolor
-                                  ? selectedButtons.add(buttonName)
-                                  : selectedButtons.remove(buttonName);
+                            blogTypeFunction: () {
+
+                            },
+                            onButtonClicked: (buttonName, isSelected) {
+                              setState(() {
+                                if (isSelected) {
+                                  selectedButtons.add(buttonName);
+                                } else {
+                                  selectedButtons.remove(buttonName);
+                                }
+                              });
                             },
                           ),
                         );
@@ -197,7 +200,9 @@ class _AddNewBlogState extends State<AddNewBlogPage> {
         onPressed: () {
           uploadBlog();
         },
-        backgroundColor: AppColors.blueColor,
+        backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+            ? context.themeColors?.chipColor // Dark mode
+            : context.themeColors?.secondCardBackGroundColor, // Light mode
         child: const Icon(Icons.done_outline_rounded,
             size: 30, color: AppColors.whiteColor),
       ),

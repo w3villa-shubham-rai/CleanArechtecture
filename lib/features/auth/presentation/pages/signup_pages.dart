@@ -40,9 +40,11 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar:  CustomAppBar(
         title: "SignUp",
-        backgroundColor: AppColors.gradient1, 
+        backgroundColor: (Theme.of(context).brightness == Brightness.dark)
+            ? (context.themeColors!.firstCardBackGroundColor)
+            : (context.themeColors!.gradient1),
         showBackButton: true, 
       ),
       body: SingleChildScrollView(
@@ -53,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
               if (state is AuthFailureState) {
                 showSnackBar(context, state.message);
               } else if (state is AuthSuccesState) {
-                context.pushAndRemoveUntil(const Blogpage());
+                context.pushAndRemoveUntil(const BlogPage());
               }
             }, 
             builder: (context, state) {
@@ -119,12 +121,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             children: [
                               TextSpan(
                                   text: 'Sign In',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(
-                                          color: AppColors.gradient2,
-                                          fontWeight: FontWeight.bold)),
+                                  style:TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: context.theme.brightness==Brightness.dark? context.themeColors!.borderColor:context.themeColors!.gradient1,
+                                  )),
                             ]),
                       ),
                     )
