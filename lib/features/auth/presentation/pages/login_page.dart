@@ -1,5 +1,4 @@
 import 'package:clean_archtecture/Utils/validator.dart';
-import 'package:clean_archtecture/core/theme/app_pallet.dart';
 import 'package:clean_archtecture/core/utils/app_bar.dart';
 import 'package:clean_archtecture/core/utils/app_extension.dart';
 import 'package:clean_archtecture/features/auth/presentation/bloc/auth_bloc.dart';
@@ -11,6 +10,7 @@ import 'package:clean_archtecture/features/auth/presentation/widgets/coustomText
 import 'package:clean_archtecture/features/blog/presentation/page/blog_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   final signformkey = GlobalKey<FormState>();
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPassWordController = TextEditingController();
+   Locale _currentLocale = const Locale('en');
 
  @override
   void dispose() {
@@ -30,17 +31,29 @@ class _LoginPageState extends State<LoginPage> {
     loginEmailController.dispose();
     loginPassWordController.dispose();
   }
+
+  void _toggleLanguage() {
+    setState(() {
+      if (_currentLocale.languageCode == 'en') {
+        _currentLocale = const Locale('es');
+      } else {
+        _currentLocale = const Locale('en');
+      }
+    });
+  }
   
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: CustomAppBar(
-        title: "Login",
+        title: l10n.loginTitle,
           backgroundColor: (Theme.of(context).brightness == Brightness.dark)
               ? (context.themeColors!.firstCardBackGroundColor)
               : (context.themeColors!.gradient1),
         showBackButton: true,
+
       ),
         body: SingleChildScrollView(
           child: Padding(
@@ -58,20 +71,17 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Sign In.",
-                          style: TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold),
-                        ),
+                        Text(l10n.signIn,style: const TextStyle( fontSize: 50, fontWeight: FontWeight.bold), ),
                         40.bh,
                         CoustomAuthTextField(
-                            hintText: 'email',
+                            hintText: l10n.emailHint,
                             controller: loginEmailController,
                             isPassword: false,
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) =>ValidatorofForm().emailValidate(value)),
                          15.bh,
                         CoustomAuthTextField(
-                          hintText: 'Password',
+                          hintText: l10n.passwordHint,
                           controller: loginPassWordController,
                           isPassword: false,
                           keyboardType: TextInputType.emailAddress,
@@ -80,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                          20.bh,
                         AuthCustomBtn(
                           isLoading: state is AuthLoadingState,
-                          btnName: "Sign In",
+                          btnName: l10n.signIn,
                           onPressed: () {
                             if (signformkey.currentState!.validate()) {
                               context.read<AuthBloc>().add(AuthLoginEvent(
@@ -97,14 +107,14 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           child: RichText(
                             text: TextSpan(
-                                text: 'Don\'t have an account? ',
+                                text: '${l10n.dontHaveAccount} ',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: context.theme.brightness==Brightness.dark? context.themeColors!.borderColor:context.themeColors!.gradient1,
                                 ),
                                 children: [
                                   TextSpan(
-                                      text: 'Sign Up',
+                                      text: l10n.signUp,
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: context.theme.brightness==Brightness.dark? context.themeColors!.borderColor:context.themeColors!.gradient1,

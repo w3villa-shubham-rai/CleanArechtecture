@@ -1,0 +1,8 @@
+{
+  "loginTitle": "Login",
+  "signIn": "Sign In",
+  "emailHint": "Email",
+  "passwordHint": "Password",
+  "dontHaveAccount": "Don't have an account?",
+  "signUp": "Sign Up"
+}

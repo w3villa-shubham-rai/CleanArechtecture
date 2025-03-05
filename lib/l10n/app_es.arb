@@ -1,0 +1,8 @@
+{
+  "loginTitle": "Iniciar sesión",
+  "signIn": "Iniciar sesión",
+  "emailHint": "Correo electrónico",
+  "passwordHint": "Contraseña",
+  "dontHaveAccount": "¿No tienes una cuenta?",
+  "signUp": "Regístrate"
+}

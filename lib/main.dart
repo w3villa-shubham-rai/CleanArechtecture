@@ -10,6 +10,10 @@ import 'package:clean_archtecture/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/theme/theme_provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,9 +56,10 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   void initState() {
     super.initState();
     appInit();
-    WidgetsBinding.instance.addObserver(this); // Add observer to listen for theme changes
+    WidgetsBinding.instance.addObserver(this); 
     _updateSystemTheme(); // Initial theme update
   }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this); // Remove observer to prevent memory leaks
@@ -64,7 +69,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    _updateSystemTheme(); // Update the theme dynamically
+    _updateSystemTheme(); 
   }
 
   void _updateSystemTheme() {
@@ -88,6 +93,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
               title: 'Flutter Demo',
               theme: value,
               debugShowCheckedModeBanner: false,
+              localizationsDelegates:   const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+             ],
+             supportedLocales: const [
+              Locale('en'), // English
+              Locale('es'), // Spanish
+              ],
+              locale: Locale('es'),
               home: BlocSelector<AppUserCubit, AppUserState, bool>(
                 selector: (state) {
                   return state is AppUserLoggedIn;
