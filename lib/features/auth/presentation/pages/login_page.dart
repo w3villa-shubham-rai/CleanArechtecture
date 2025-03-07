@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
@@ -23,7 +22,6 @@ class _LoginPageState extends State<LoginPage> {
   final signformkey = GlobalKey<FormState>();
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPassWordController = TextEditingController();
-   Locale _currentLocale = const Locale('en');
 
  @override
   void dispose() {
@@ -32,16 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     loginPassWordController.dispose();
   }
 
-  void _toggleLanguage() {
-    setState(() {
-      if (_currentLocale.languageCode == 'en') {
-        _currentLocale = const Locale('es');
-      } else {
-        _currentLocale = const Locale('en');
-      }
-    });
-  }
-  
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +52,6 @@ class _LoginPageState extends State<LoginPage> {
                 if (state is AuthSuccesState) {
                   context.pushAndRemoveUntil(const BlogPage());
                 }
-               
               },
               builder: (BuildContext context, AuthBlocState state) {
                   return Form(

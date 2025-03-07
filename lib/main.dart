@@ -13,8 +13,6 @@ import 'core/theme/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependency();
@@ -40,7 +38,6 @@ void main() async {
 }
 
 
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
   @override
@@ -48,9 +45,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
-
-
-
 
   @override
   void initState() {
@@ -82,8 +76,6 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
     context.read<AuthBloc>().add(AuthIsUserLoggedInEvent());
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -103,7 +95,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
               Locale('en'), // English
               Locale('es'), // Spanish
               ],
-              locale: Locale('es'),
+              locale: const Locale('en'),
               home: BlocSelector<AppUserCubit, AppUserState, bool>(
                 selector: (state) {
                   return state is AppUserLoggedIn;
@@ -121,3 +113,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver{
     );
   }
 }
+
+// git commit --amend -m "Updated commit message"
+// git push --force
+// 
